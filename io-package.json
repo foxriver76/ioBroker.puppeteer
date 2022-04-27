@@ -83,7 +83,7 @@
         "type": "string",
         "read": false,
         "write": true,
-        "role": "text"
+        "role": "text.url"
       },
       "native": {}
     },
@@ -96,6 +96,69 @@
         "read": true,
         "write": true,
         "role": "text"
+      },
+      "native": {}
+    },
+    {
+      "_id": "fullPage",
+      "type": "state",
+      "common": {
+        "name": "If true, takes a screenshot of the full page.",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "role": "switch",
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "clipTop",
+      "type": "state",
+      "common": {
+        "name": "Top position of the clip rectangle. Default value 0px",
+        "type": "number",
+        "read": true,
+        "write": true,
+        "role": "value",
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "clipLeft",
+      "type": "state",
+      "common": {
+        "name": "Left position of the clip rectangle. Default value 0px",
+        "type": "number",
+        "read": true,
+        "write": true,
+        "role": "value",
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "clipWidth",
+      "type": "state",
+      "common": {
+        "name": "Width of the clip rectangle.",
+        "type": "number",
+        "read": true,
+        "write": true,
+        "role": "value"
+      },
+      "native": {}
+    },
+    {
+      "_id": "clipHeight",
+      "type": "state",
+      "common": {
+        "name": "Height of the clip rectangle.",
+        "type": "number",
+        "read": true,
+        "write": true,
+        "role": "value"
       },
       "native": {}
     }

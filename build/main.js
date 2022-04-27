@@ -31,7 +31,7 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
 var utils = __toESM(require("@iobroker/adapter-core"));
-const puppeteer = require("puppeteer");
+var import_puppeteer = __toESM(require("puppeteer"));
 class PuppeteerAdapter extends utils.Adapter {
   constructor(options = {}) {
     super(__spreadProps(__spreadValues({}, options), { name: "puppeteer" }));
@@ -42,7 +42,7 @@ class PuppeteerAdapter extends utils.Adapter {
   async onReady() {
     this.subscribeStates("url");
     this.log.info("ready");
-    this.browser = await puppeteer.launch({ headless: true });
+    this.browser = await import_puppeteer.default.launch({ headless: true });
   }
   async onUnload(callback) {
     this.log.info("shutting down");
@@ -61,23 +61,62 @@ class PuppeteerAdapter extends utils.Adapter {
       return;
     }
     if (state && state.val) {
-      const options = {};
-      const filenameState = await this.getStateAsync("filename");
-      if (filenameState && filenameState.val) {
-        options.path = filenameState.val;
-      } else {
-        this.log.warn("Please specify a filename before taking screenshots");
+      const options = await this.gatherScreenshotOptions();
+      if (!options.path) {
+        this.log.error("Please specify a filename before taking a screenshot");
+        return;
       }
+      this.log.debug(`Screenshot options: ${JSON.stringify(options)}`);
       this.log.info(`Taking screenshot of "${state.val}"`);
       try {
         const page = await this.browser.newPage();
         await page.goto(state.val, { waitUntil: "networkidle2" });
         await page.screenshot(options);
         this.log.info("Screenshot sucessfully saved");
+        await page.close();
       } catch (e) {
         this.log.error(`Could not take screenshot of "${state.val}": ${e.message}`);
       }
     }
+  }
+  async gatherScreenshotOptions() {
+    const options = {};
+    const filenameState = await this.getStateAsync("filename");
+    if (filenameState && filenameState.val) {
+      options.path = filenameState.val;
+    }
+    const fullPageState = await this.getStateAsync("fullPage");
+    if (fullPageState) {
+      options.fullPage = !!fullPageState.val;
+    }
+    if (!options.fullPage) {
+      const clipOptions = await this.gatherScreenshotClipOptions();
+      if (clipOptions) {
+        options.clip = clipOptions;
+      }
+    } else {
+      this.log.debug("Ingoring clip options, because full page is desired");
+    }
+    return options;
+  }
+  async gatherScreenshotClipOptions() {
+    const options = {};
+    const clipAttributes = {
+      clipLeft: "x",
+      clipTop: "y",
+      clipHeight: "height",
+      clipWidth: "width"
+    };
+    for (const [id, attributeName] of Object.entries(clipAttributes)) {
+      const clipAttributeState = await this.getStateAsync(id);
+      if (clipAttributeState && typeof clipAttributeState.val === "number") {
+        options[attributeName] = clipAttributeState.val;
+      } else {
+        this.log.debug(`Ignoring clip, because "${id}" is not configured`);
+        return;
+      }
+    }
+    return options;
   }
 }
 if (require.main !== module) {
