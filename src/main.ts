@@ -40,14 +40,14 @@ class PuppeteerAdapter extends utils.Adapter {
     /**
      * Is called if a subscribed state changes
      */
-    private async onStateChange(_id: string, state: ioBroker.State | null | undefined): Promise<void> {
+    private async onStateChange(id: string, state: ioBroker.State | null | undefined): Promise<void> {
         if (!this.browser) {
             // unload called
             return;
         }
 
         // user wants to perform a screenshot
-        if (state && state.val) {
+        if (state && state.val && !state.ack) {
             const options: ScreenshotOptions = await this.gatherScreenshotOptions();
 
             if (!options.path) {
@@ -64,6 +64,7 @@ class PuppeteerAdapter extends utils.Adapter {
                 await page.goto(state.val as string, { waitUntil: 'networkidle2' });
                 await page.screenshot(options);
                 this.log.info('Screenshot sucessfully saved');
+                await this.setStateAsync(id, state.val, true);
                 await page.close();
             } catch (e) {
                 this.log.error(`Could not take screenshot of "${state.val}": ${e.message}`);

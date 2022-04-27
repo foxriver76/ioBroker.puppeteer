@@ -56,11 +56,11 @@ class PuppeteerAdapter extends utils.Adapter {
       callback();
     }
   }
-  async onStateChange(_id, state) {
+  async onStateChange(id, state) {
     if (!this.browser) {
       return;
     }
-    if (state && state.val) {
+    if (state && state.val && !state.ack) {
       const options = await this.gatherScreenshotOptions();
       if (!options.path) {
         this.log.error("Please specify a filename before taking a screenshot");
@@ -73,6 +73,7 @@ class PuppeteerAdapter extends utils.Adapter {
         await page.goto(state.val, { waitUntil: "networkidle2" });
         await page.screenshot(options);
         this.log.info("Screenshot sucessfully saved");
+        await this.setStateAsync(id, state.val, true);
         await page.close();
       } catch (e) {
         this.log.error(`Could not take screenshot of "${state.val}": ${e.message}`);

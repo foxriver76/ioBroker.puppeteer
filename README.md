@@ -18,6 +18,24 @@ Headless browser to generate screenshots based on Chrome
 Puppeteer is a product of Google Inc. The developers of this module are in no way endorsed by or affiliated with Google Inc., 
 or any associated subsidiaries, logos or trademarks.
 
+## How-To
+The adapter is fully configurable via states and does not provide settings in the admin interface.
+The states (besides `url`) will not get any ack-flag by the adapter and ack-flags are ignored in general.
+
+### filename
+Specify the filename (full path) of the image.
+
+### url
+Specify the url you want to take a screenshot from. If the state is written, a screenshot will be created immediately.
+After the screenshot is created, the adapter will set the ack flag of url state to true.
+
+### fullPage
+If this state evaluates to true, it will perform a screenshot of the full page. The crop options will be ignored.
+
+### cropLeft/Top/Height/Width
+Configure the crop options in `px` to only screenshot the desired segment of the page. 
+If `fullPage` is set to true, no cropping will be performed.
+
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
