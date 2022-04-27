@@ -1,0 +1,103 @@
+{
+  "common": {
+    "name": "puppeteer",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
+    },
+    "title": "Puppeteer",
+    "titleLang": {
+      "en": "Puppeteer",
+      "de": "Puppenspieler",
+      "ru": "Кукольник",
+      "pt": "Marionetista",
+      "nl": "poppenspeler",
+      "fr": "Marionnettiste",
+      "it": "Burattinaio",
+      "es": "Titiritero",
+      "pl": "Lalkarz",
+      "zh-cn": "傀儡师"
+    },
+    "desc": {
+      "en": "Headless browser to generate screenshots based on Chrome",
+      "de": "Headless-Browser zum Generieren von Screenshots auf Basis von Chrome",
+      "ru": "Безголовый браузер для создания скриншотов на основе Chrome",
+      "pt": "Navegador sem cabeça para gerar capturas de tela com base no Chrome",
+      "nl": "Headless browser om screenshots te genereren op basis van Chrome",
+      "fr": "Navigateur sans tête pour générer des captures d'écran basées sur Chrome",
+      "it": "Browser headless per generare screenshot basati su Chrome",
+      "es": "Navegador sin cabeza para generar capturas de pantalla basado en Chrome",
+      "pl": "Bezgłowa przeglądarka do generowania zrzutów ekranu w oparciu o Chrome",
+      "zh-cn": "基于 Chrome 生成截图的无头浏览器"
+    },
+    "authors": [
+      "Moritz Heusinger <moritz.heusinger@gmail.com>"
+    ],
+    "keywords": [
+      "screenshots",
+      "visualization",
+      "browser"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "puppeteer.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/foxriver76/ioBroker.puppeteer/main/admin/puppeteer.png",
+    "readme": "https://github.com/foxriver76/ioBroker.puppeteer/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "adminUI": {
+      "config": "none"
+    },
+    "type": "utility",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "dependencies": [
+      {
+        "js-controller": ">=3.0.0"
+      }
+    ]
+  },
+  "native": {
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "url",
+      "type": "state",
+      "common": {
+        "name": "URL of which screenshot is made",
+        "type": "string",
+        "read": false,
+        "write": true,
+        "role": "text"
+      },
+      "native": {}
+    },
+    {
+      "_id": "filename",
+      "type": "state",
+      "common": {
+        "name": "Name of the saved file",
+        "type": "string",
+        "read": true,
+        "write": true,
+        "role": "text"
+      },
+      "native": {}
+    }
+  ]
+}
