@@ -1,6 +1,5 @@
 import * as utils from '@iobroker/adapter-core';
-import puppeteer from 'puppeteer';
-import { Browser, ScreenshotOptions, ScreenshotClip } from 'puppeteer';
+import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip } from 'puppeteer';
 
 class PuppeteerAdapter extends utils.Adapter {
     private browser: Browser | undefined;
@@ -17,17 +16,17 @@ class PuppeteerAdapter extends utils.Adapter {
      */
     private async onReady(): Promise<void> {
         this.subscribeStates('url');
-        this.log.info('ready');
         this.browser = await puppeteer.launch({ headless: true });
+        this.log.info('Ready to take screenshots');
     }
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      */
     private async onUnload(callback: () => void): Promise<void> {
-        this.log.info('shutting down');
         try {
             if (this.browser) {
+                this.log.info('Closing browser');
                 await this.browser.close();
                 this.browser = undefined;
             }
@@ -60,9 +59,13 @@ class PuppeteerAdapter extends utils.Adapter {
 
             try {
                 const page = await this.browser.newPage();
-
                 await page.goto(state.val as string, { waitUntil: 'networkidle2' });
+
+                await this.waitForConditions(page);
+
                 await page.screenshot(options);
+
+                // set ack true, to inform about screenshot creation
                 this.log.info('Screenshot sucessfully saved');
                 await this.setStateAsync(id, state.val, true);
                 await page.close();
@@ -127,6 +130,28 @@ class PuppeteerAdapter extends utils.Adapter {
         }
 
         return options as ScreenshotClip;
+    }
+
+    /**
+     * Waits until the user configured conditions are fullfilled
+     *
+     * @param page active page object
+     */
+    private async waitForConditions(page: Page): Promise<void> {
+        // selector has highest priority
+        const selector = (await this.getStateAsync('waitForSelector'))?.val;
+        if (selector && typeof selector === 'string') {
+            this.log.debug(`Waiting for selector "${selector}"`);
+            await page.waitForSelector(selector);
+            return;
+        }
+
+        const renderTimeMs = (await this.getStateAsync('renderTime'))?.val;
+        if (renderTimeMs && typeof renderTimeMs === 'number') {
+            this.log.debug(`Waiting for timeout "${renderTimeMs}" ms`);
+            await page.waitForTimeout(renderTimeMs);
+            return;
+        }
     }
 }
 

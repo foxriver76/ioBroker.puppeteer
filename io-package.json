@@ -161,6 +161,31 @@
         "role": "value"
       },
       "native": {}
+    },
+    {
+      "_id": "renderTime",
+      "type": "state",
+      "common": {
+        "name": "Interval in ms to wait till the page will be rendered",
+        "type": "number",
+        "read": true,
+        "write": true,
+        "role": "value.interval",
+        "unit": "ms"
+      },
+      "native": {}
+    },
+    {
+      "_id": "waitForSelector",
+      "type": "state",
+      "common": {
+        "name": "Selector to wait for before taking screenshot",
+        "type": "string",
+        "read": true,
+        "write": true,
+        "role": "text"
+      },
+      "native": {}
     }
   ]
 }

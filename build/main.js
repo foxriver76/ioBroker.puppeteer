@@ -41,13 +41,13 @@ class PuppeteerAdapter extends utils.Adapter {
   }
   async onReady() {
     this.subscribeStates("url");
-    this.log.info("ready");
     this.browser = await import_puppeteer.default.launch({ headless: true });
+    this.log.info("Ready to take screenshots");
   }
   async onUnload(callback) {
-    this.log.info("shutting down");
     try {
       if (this.browser) {
+        this.log.info("Closing browser");
         await this.browser.close();
         this.browser = void 0;
       }
@@ -71,6 +71,7 @@ class PuppeteerAdapter extends utils.Adapter {
       try {
         const page = await this.browser.newPage();
         await page.goto(state.val, { waitUntil: "networkidle2" });
+        await this.waitForConditions(page);
         await page.screenshot(options);
         this.log.info("Screenshot sucessfully saved");
         await this.setStateAsync(id, state.val, true);
@@ -118,6 +119,21 @@ class PuppeteerAdapter extends utils.Adapter {
       }
     }
     return options;
+  }
+  async waitForConditions(page) {
+    var _a, _b;
+    const selector = (_a = await this.getStateAsync("waitForSelector")) == null ? void 0 : _a.val;
+    if (selector && typeof selector === "string") {
+      this.log.debug(`Waiting for selector "${selector}"`);
+      await page.waitForSelector(selector);
+      return;
+    }
+    const renderTimeMs = (_b = await this.getStateAsync("renderTime")) == null ? void 0 : _b.val;
+    if (renderTimeMs && typeof renderTimeMs === "number") {
+      this.log.debug(`Waiting for timeout "${renderTimeMs}" ms`);
+      await page.waitForTimeout(renderTimeMs);
+      return;
+    }
   }
 }
 if (require.main !== module) {

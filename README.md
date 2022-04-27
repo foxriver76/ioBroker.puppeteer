@@ -36,6 +36,13 @@ If this state evaluates to true, it will perform a screenshot of the full page. 
 Configure the crop options in `px` to only screenshot the desired segment of the page. 
 If `fullPage` is set to true, no cropping will be performed.
 
+### waitForSelector
+The screenshot will be taken after the selector is visible on the page e.g. `#time`. If `waitForSelector` is active, 
+other wait oeprations like `renderTime` are ignored.
+
+### renderTime
+Interval in ms to wait till the page will be rendered
+
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
