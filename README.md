@@ -22,26 +22,103 @@ or any associated subsidiaries, logos or trademarks.
 The adapter is fully configurable via states and does not provide settings in the admin interface.
 The states (besides `url`) will not get any ack-flag by the adapter and ack-flags are ignored in general.
 
-### filename
+### States
+
+#### filename
 Specify the filename (full path) of the image.
 
-### url
+#### url
 Specify the url you want to take a screenshot from. If the state is written, a screenshot will be created immediately.
 After the screenshot is created, the adapter will set the ack flag of url state to true.
 
-### fullPage
+#### fullPage
 If this state evaluates to true, it will perform a screenshot of the full page. The crop options will be ignored.
 
-### cropLeft/Top/Height/Width
+#### cropLeft/Top/Height/Width
 Configure the crop options in `px` to only screenshot the desired segment of the page. 
 If `fullPage` is set to true, no cropping will be performed.
 
-### waitForSelector
+#### waitForSelector
 The screenshot will be taken after the selector is visible on the page e.g. `#time`. If `waitForSelector` is active, 
 other wait oeprations like `renderTime` are ignored.
 
-### renderTime
+#### renderTime
 Interval in ms to wait till the page will be rendered
+
+### Messages
+Alternatively you can take screenshots by sending messages to the adapter.
+All options beside from `url` are passed directly to the Puppeteer API, the currently supported parameters can be found
+below, for a more up-to-date version check the [API description](https://puppeteer.github.io/puppeteer/docs/puppeteer.screenshotoptions). 
+Additionally, you can define a `waitOption` to wait for a given time or for a selector.
+
+```typescript
+sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
+      /**
+       * Define at most one wait option
+       * You can also look for other waitOptions currently supported by Puppeteer API
+       * see e.g. https://puppeteer.github.io/puppeteer/docs/puppeteer.page.waitforfilechooser
+       */
+      waitOption?: {
+        /**
+         * Define a Timeout in ms
+         */
+        waitForTimeout?: 5000,
+    
+        /**
+         * Wait for a given id/tag/etc to be occured
+         */
+        waitForSelector?: '#testId'
+      },
+      
+      /**
+       * The file path to save the image to. The screenshot type will be inferred
+       * from file extension. If path is a relative path, then it is resolved
+       * relative to current working directory. If no path is provided, the image
+       * won't be saved to the disk.
+       */
+      path?: string,
+      /**
+       * When true, takes a screenshot of the full page.
+       * @defaultValue false
+       */
+      fullPage?: boolean,
+      /**
+       * An object which specifies the clipping region of the page.
+       */
+      clip?: {         
+        x: number,
+        y: number,
+        width: number,
+        height: number 
+      };
+      /**
+       * Quality of the image, between 0-100. Not applicable to `png` images.
+       */
+      quality?: number,
+      /**
+       * Hides default white background and allows capturing screenshots with transparency.
+       * @defaultValue false
+       */
+      omitBackground?: boolean,
+      /**
+       * Encoding of the image.
+       * @defaultValue 'binary'
+       */
+      encoding?: 'base64' | 'binary',
+      /**
+       * If you need a screenshot bigger than the Viewport
+       * @defaultValue true
+       */
+      captureBeyondViewport?: boolean,
+  }, obj => {
+      if (obj.error) {
+        log(`Error taking screenshot: ${obj.error.message}`, 'error');
+      } else {
+        // the binary representation of the image is contained in `obj.result`
+        log(`Sucessfully took screenshot: ${obj.result}`);
+      }
+});
+```
 
 ## Changelog
 <!--

@@ -32,12 +32,14 @@ var __copyProps = (to, from, except, desc) => {
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
 var utils = __toESM(require("@iobroker/adapter-core"));
 var import_puppeteer = __toESM(require("puppeteer"));
+var import_tools = require("./lib/tools");
 class PuppeteerAdapter extends utils.Adapter {
   constructor(options = {}) {
     super(__spreadProps(__spreadValues({}, options), { name: "puppeteer" }));
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
     this.on("unload", this.onUnload.bind(this));
+    this.on("message", this.onMessage.bind(this));
   }
   async onReady() {
     this.subscribeStates("url");
@@ -54,6 +56,40 @@ class PuppeteerAdapter extends utils.Adapter {
       callback();
     } catch {
       callback();
+    }
+  }
+  async onMessage(obj) {
+    if (!this.browser) {
+      return;
+    }
+    this.log.debug(`Message: ${JSON.stringify(obj)}`);
+    if (obj.command === "screenshot") {
+      let url;
+      let options;
+      if (typeof obj.message === "string") {
+        url = obj.message;
+        options = {};
+      } else {
+        url = obj.message.url;
+        options = obj.message;
+        delete options.url;
+      }
+      const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
+      try {
+        const page = await this.browser.newPage();
+        await page.goto(url, { waitUntil: "networkidle2" });
+        if (waitMethod && waitMethod in page) {
+          await page[waitMethod](waitParameter);
+        }
+        const img = await page.screenshot(options);
+        this.sendTo(obj.from, obj.command, { result: img }, obj.callback);
+      } catch (e) {
+        this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
+        this.sendTo(obj.from, obj.command, { error: e }, obj.callback);
+      }
+    } else {
+      this.log.error(`Unsupported message command: ${obj.command}`);
+      this.sendTo(obj.from, obj.command, { error: new Error(`Unsupported message command: ${obj.command}`) }, obj.callback);
     }
   }
   async onStateChange(id, state) {
@@ -134,6 +170,18 @@ class PuppeteerAdapter extends utils.Adapter {
       await page.waitForTimeout(renderTimeMs);
       return;
     }
+  }
+  static extractWaitOptionFromMessage(options) {
+    let waitMethod;
+    let waitParameter;
+    if ("waitOption" in options) {
+      if ((0, import_tools.isObject)(options.waitOption)) {
+        waitMethod = Object.keys(options.waitOption)[0];
+        waitParameter = Object.values(options.waitOption)[0];
+      }
+      delete options.waitOption;
+    }
+    return { waitMethod, waitParameter };
   }
 }
 if (require.main !== module) {

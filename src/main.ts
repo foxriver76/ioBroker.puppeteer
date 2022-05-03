@@ -1,5 +1,6 @@
 import * as utils from '@iobroker/adapter-core';
 import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip } from 'puppeteer';
+import { isObject } from './lib/tools';
 
 class PuppeteerAdapter extends utils.Adapter {
     private browser: Browser | undefined;
@@ -9,6 +10,7 @@ class PuppeteerAdapter extends utils.Adapter {
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
+        this.on('message', this.onMessage.bind(this));
     }
 
     /**
@@ -33,6 +35,60 @@ class PuppeteerAdapter extends utils.Adapter {
             callback();
         } catch {
             callback();
+        }
+    }
+
+    /**
+     * Is called when message received
+     */
+    private async onMessage(obj: ioBroker.Message): Promise<void> {
+        if (!this.browser) {
+            // unload called
+            return;
+        }
+
+        this.log.debug(`Message: ${JSON.stringify(obj)}`);
+
+        if (obj.command === 'screenshot') {
+            let url: string;
+            let options: Record<string, any>;
+
+            if (typeof obj.message === 'string') {
+                url = obj.message;
+                options = {};
+            } else {
+                url = obj.message.url;
+                options = obj.message;
+                delete options.url;
+            }
+
+            const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
+
+            try {
+                const page = await this.browser.newPage();
+
+                await page.goto(url, { waitUntil: 'networkidle2' });
+
+                // if wait options given, await them
+                if (waitMethod && waitMethod in page) {
+                    await (page as any)[waitMethod](waitParameter);
+                }
+
+                const img = await page.screenshot(options);
+
+                this.sendTo(obj.from, obj.command, { result: img }, obj.callback);
+            } catch (e) {
+                this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
+                this.sendTo(obj.from, obj.command, { error: e }, obj.callback);
+            }
+        } else {
+            this.log.error(`Unsupported message command: ${obj.command}`);
+            this.sendTo(
+                obj.from,
+                obj.command,
+                { error: new Error(`Unsupported message command: ${obj.command}`) },
+                obj.callback
+            );
         }
     }
 
@@ -152,6 +208,29 @@ class PuppeteerAdapter extends utils.Adapter {
             await page.waitForTimeout(renderTimeMs);
             return;
         }
+    }
+
+    /**
+     * Extracts the waitOption from a message
+     *
+     * @param options obj.message part of a message passed by user
+     */
+    private static extractWaitOptionFromMessage(options: Record<string, any>): {
+        waitMethod: string | undefined;
+        waitParameter: unknown;
+    } {
+        let waitMethod: string | undefined;
+        let waitParameter: unknown;
+
+        if ('waitOption' in options) {
+            if (isObject(options.waitOption)) {
+                waitMethod = Object.keys(options.waitOption)[0];
+                waitParameter = Object.values(options.waitOption)[0];
+            }
+            delete options.waitOption;
+        }
+
+        return { waitMethod, waitParameter };
     }
 }
 

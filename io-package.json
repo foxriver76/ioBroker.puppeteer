@@ -62,6 +62,7 @@
       "config": "none"
     },
     "type": "utility",
+    "messagebox": true,
     "compact": true,
     "connectionType": "local",
     "dataSource": "poll",
