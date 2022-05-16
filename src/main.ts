@@ -1,6 +1,7 @@
 import * as utils from '@iobroker/adapter-core';
 import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip } from 'puppeteer';
 import { isObject } from './lib/tools';
+import { normalize } from 'path';
 
 class PuppeteerAdapter extends utils.Adapter {
     private browser: Browser | undefined;
@@ -17,8 +18,8 @@ class PuppeteerAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        this.subscribeStates('url');
         this.browser = await puppeteer.launch({ headless: true });
+        this.subscribeStates('url');
         this.log.info('Ready to take screenshots');
     }
 
@@ -65,6 +66,10 @@ class PuppeteerAdapter extends utils.Adapter {
             const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
 
             try {
+                if (options.path) {
+                    this.validatePath(options.path);
+                }
+
                 const page = await this.browser.newPage();
 
                 await page.goto(url, { waitUntil: 'networkidle2' });
@@ -107,6 +112,13 @@ class PuppeteerAdapter extends utils.Adapter {
 
             if (!options.path) {
                 this.log.error('Please specify a filename before taking a screenshot');
+                return;
+            }
+
+            try {
+                this.validatePath(options.path);
+            } catch (e) {
+                this.log.error(`Cannot take screenshot: ${e.message}`);
                 return;
             }
 
@@ -186,6 +198,23 @@ class PuppeteerAdapter extends utils.Adapter {
         }
 
         return options as ScreenshotClip;
+    }
+
+    /**
+     * Validates that the given path is valid to save a screenshot too, prevents node_modules and dataDir
+     * @param path path to check
+     */
+    private validatePath(path: string): void {
+        path = normalize(path);
+        this.log.debug(`Checking path "${path}"`);
+
+        if (path.startsWith(utils.getAbsoluteDefaultDataDir())) {
+            throw new Error('Screenshots cannot be stored inside the ioBroker storage');
+        }
+
+        if (path.includes(normalize('/node_modules/'))) {
+            throw new Error('Screenshots cannot be stored inside a node_modules folder');
+        }
     }
 
     /**

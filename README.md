@@ -125,8 +125,7 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.1.0 (2022-05-16)
 * (foxriver76) initial release
 
 ## License
