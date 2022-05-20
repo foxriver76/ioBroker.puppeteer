@@ -47,12 +47,19 @@ Interval in ms to wait till the page will be rendered
 
 ### Messages
 Alternatively you can take screenshots by sending messages to the adapter.
-All options beside from `url` are passed directly to the Puppeteer API, the currently supported parameters can be found
+All options beside from `url` and `ioBrokerOptions` are passed directly to the Puppeteer API, the currently supported parameters can be found
 below, for a more up-to-date version check the [API description](https://puppeteer.github.io/puppeteer/docs/puppeteer.screenshotoptions). 
-Additionally, you can define a `waitOption` to wait for a given time or for a selector.
+Additionally, you can define a `waitOption` to wait for a given time or for a selector. Finally, you can use the `ioBrokerOptions.storagePath` 
+option to save screenshots directly to the ioBroker storage under `0_userdata.0` which can then be viewed via admin and visualization adapters.
 
 ```typescript
 sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
+      ioBrokerOptions?: {
+        /**
+         * Define a filename for the ioBroker storage e.g. test.png
+         */
+        storagePath: string;
+      },
       /**
        * Define at most one wait option
        * You can also look for other waitOptions currently supported by Puppeteer API
@@ -125,6 +132,9 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.0 (2022-05-20)
+* (foxriver76) added option to save files to the ioBroker storage via messages by using `ioBrokerOptions.storagePath` (closes #2)
+
 ### 0.1.0 (2022-05-16)
 * (foxriver76) initial release
 

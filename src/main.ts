@@ -64,6 +64,7 @@ class PuppeteerAdapter extends utils.Adapter {
             }
 
             const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
+            const { storagePath } = PuppeteerAdapter.extractIoBrokerOptionsFromMessage(options);
 
             try {
                 if (options.path) {
@@ -80,6 +81,10 @@ class PuppeteerAdapter extends utils.Adapter {
                 }
 
                 const img = await page.screenshot(options);
+                if (storagePath) {
+                    this.log.debug(`Write file to "${storagePath}"`);
+                    await this.writeFileAsync('0_userdata.0', storagePath, img);
+                }
 
                 this.sendTo(obj.from, obj.command, { result: img }, obj.callback);
             } catch (e) {
@@ -237,6 +242,23 @@ class PuppeteerAdapter extends utils.Adapter {
             await page.waitForTimeout(renderTimeMs);
             return;
         }
+    }
+
+    /**
+     * Extracts the ioBroker specific options from the message
+     *
+     * @param options obj.message part of a message passed by user
+     */
+    private static extractIoBrokerOptionsFromMessage(options: Record<string, any>): {
+        storagePath: string | undefined;
+    } {
+        let storagePath: string | undefined;
+        if (typeof options.ioBrokerOptions?.storagePath === 'string') {
+            storagePath = options.ioBrokerOptions.storagePath;
+        }
+
+        delete options.ioBrokerOptions;
+        return { storagePath };
     }
 
     /**

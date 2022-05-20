@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "added option to save files to the ioBroker storage via messages by using `ioBrokerOptions.storagePath` (closes #2)",
+        "de": "Option hinzugefügt, um Dateien über Nachrichten im ioBroker-Speicher zu speichern, indem `ioBrokerOptions.storagePath` verwendet wird (schließt #2)",
+        "ru": "добавлена возможность сохранять файлы в хранилище ioBroker через сообщения с помощью `ioBrokerOptions.storagePath` (закрывает #2)",
+        "pt": "opção adicionada para salvar arquivos no armazenamento do ioBroker por meio de mensagens usando `ioBrokerOptions.storagePath` (fecha #2)",
+        "nl": "optie toegevoegd om bestanden op de ioBroker-opslag op te slaan via berichten met behulp van `ioBrokerOptions.storagePath` (sluit #2)",
+        "fr": "ajout d'une option pour enregistrer des fichiers sur le stockage ioBroker via des messages en utilisant `ioBrokerOptions.storagePath` (ferme #2)",
+        "it": "aggiunta opzione per salvare i file nella memoria di ioBroker tramite messaggi utilizzando `ioBrokerOptions.storagePath` (chiude il n. 2)",
+        "es": "Opción agregada para guardar archivos en el almacenamiento de ioBroker a través de mensajes usando `ioBrokerOptions.storagePath` (cierra #2)",
+        "pl": "dodano opcję zapisywania plików do magazynu ioBroker za pomocą wiadomości przy użyciu `ioBrokerOptions.storagePath` (zamyka #2)",
+        "zh-cn": "添加了使用 `ioBrokerOptions.storagePath` 通过消息将文件保存到 ioBroker 存储的选项（关闭 #2）"
+      },
       "0.1.0": {
         "en": "initial release",
         "de": "Erstveröffentlichung",

@@ -33,6 +33,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var utils = __toESM(require("@iobroker/adapter-core"));
 var import_puppeteer = __toESM(require("puppeteer"));
 var import_tools = require("./lib/tools");
+var import_path = require("path");
 class PuppeteerAdapter extends utils.Adapter {
   constructor(options = {}) {
     super(__spreadProps(__spreadValues({}, options), { name: "puppeteer" }));
@@ -42,8 +43,8 @@ class PuppeteerAdapter extends utils.Adapter {
     this.on("message", this.onMessage.bind(this));
   }
   async onReady() {
-    this.subscribeStates("url");
     this.browser = await import_puppeteer.default.launch({ headless: true });
+    this.subscribeStates("url");
     this.log.info("Ready to take screenshots");
   }
   async onUnload(callback) {
@@ -75,13 +76,21 @@ class PuppeteerAdapter extends utils.Adapter {
         delete options.url;
       }
       const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
+      const { storagePath } = PuppeteerAdapter.extractIoBrokerOptionsFromMessage(options);
       try {
+        if (options.path) {
+          this.validatePath(options.path);
+        }
         const page = await this.browser.newPage();
         await page.goto(url, { waitUntil: "networkidle2" });
         if (waitMethod && waitMethod in page) {
           await page[waitMethod](waitParameter);
         }
         const img = await page.screenshot(options);
+        if (storagePath) {
+          this.log.debug(`Write file to "${storagePath}"`);
+          await this.writeFileAsync("0_userdata.0", storagePath, img);
+        }
         this.sendTo(obj.from, obj.command, { result: img }, obj.callback);
       } catch (e) {
         this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
@@ -100,6 +109,12 @@ class PuppeteerAdapter extends utils.Adapter {
       const options = await this.gatherScreenshotOptions();
       if (!options.path) {
         this.log.error("Please specify a filename before taking a screenshot");
+        return;
+      }
+      try {
+        this.validatePath(options.path);
+      } catch (e) {
+        this.log.error(`Cannot take screenshot: ${e.message}`);
         return;
       }
       this.log.debug(`Screenshot options: ${JSON.stringify(options)}`);
@@ -156,6 +171,16 @@ class PuppeteerAdapter extends utils.Adapter {
     }
     return options;
   }
+  validatePath(path) {
+    path = (0, import_path.normalize)(path);
+    this.log.debug(`Checking path "${path}"`);
+    if (path.startsWith(utils.getAbsoluteDefaultDataDir())) {
+      throw new Error("Screenshots cannot be stored inside the ioBroker storage");
+    }
+    if (path.includes((0, import_path.normalize)("/node_modules/"))) {
+      throw new Error("Screenshots cannot be stored inside a node_modules folder");
+    }
+  }
   async waitForConditions(page) {
     var _a, _b;
     const selector = (_a = await this.getStateAsync("waitForSelector")) == null ? void 0 : _a.val;
@@ -170,6 +195,15 @@ class PuppeteerAdapter extends utils.Adapter {
       await page.waitForTimeout(renderTimeMs);
       return;
     }
+  }
+  static extractIoBrokerOptionsFromMessage(options) {
+    var _a;
+    let storagePath;
+    if (typeof ((_a = options.ioBrokerOptions) == null ? void 0 : _a.storagePath) === "string") {
+      storagePath = options.ioBrokerOptions.storagePath;
+    }
+    delete options.ioBrokerOptions;
+    return { storagePath };
   }
   static extractWaitOptionFromMessage(options) {
     let waitMethod;
