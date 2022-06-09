@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "we now install required shared libraries on adapter installation on linux",
+        "de": "wir installieren jetzt benötigte freigegebene bibliotheken auf adapter-installation auf linux",
+        "ru": "мы теперь устанавливаем необходимые общие библиотеки на адаптере установки на linux",
+        "pt": "agora instalamos bibliotecas compartilhadas necessárias na instalação do adaptador no linux",
+        "nl": "we installeren nu gedeelde bibliotheken op de linux",
+        "fr": "nous installons maintenant les bibliothèques partagées nécessaires sur l'installation d'adaptateurs sur linux",
+        "it": "ora installiamo librerie condivise richieste sull'installazione dell'adattatore su linux",
+        "es": "ahora instalamos bibliotecas compartidas requeridas en la instalación de adaptador en linux",
+        "pl": "obecnie potrzebna jest instalacja bibliotek wspólnych na instalacji adapterowej na linux",
+        "zh-cn": "我们现在安装了必要的共同图书馆,供电器安装。"
+      },
       "0.2.0": {
         "en": "added option to save files to the ioBroker storage via messages by using `ioBrokerOptions.storagePath` (closes #2)",
         "de": "Option hinzugefügt, um Dateien über Nachrichten im ioBroker-Speicher zu speichern, indem `ioBrokerOptions.storagePath` verwendet wird (schließt #2)",
@@ -94,7 +106,48 @@
       {
         "js-controller": ">=3.0.0"
       }
-    ]
+    ],
+    "osDependencies": {
+      "linux": [
+        "ca-certificates",
+        "fonts-liberation",
+        "libappindicator3-1",
+        "libasound2",
+        "libatk-bridge2.0-0",
+        "libatk1.0-0",
+        "libc6",
+        "libcairo2",
+        "libcups2",
+        "libdbus-1-3",
+        "libexpat1",
+        "libfontconfig1",
+        "libgbm1",
+        "libgcc1",
+        "libglib2.0-0",
+        "libgtk-3-0",
+        "libnspr4",
+        "libnss3",
+        "libpango-1.0-0",
+        "libpangocairo-1.0-0",
+        "libstdc++6",
+        "libx11-6",
+        "libx11-xcb1",
+        "libxcb1",
+        "libxcomposite1",
+        "libxcursor1",
+        "libxdamage1",
+        "libxext6",
+        "libxfixes3",
+        "libxi6",
+        "libxrandr2",
+        "libxrender1",
+        "libxss1",
+        "libxtst6",
+        "lsb-release",
+        "wget",
+        "xdg-utils"
+      ]
+    }
   },
   "native": {},
   "objects": [],

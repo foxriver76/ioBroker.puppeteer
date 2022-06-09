@@ -132,6 +132,9 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.1 (2022-06-09)
+* (foxriver76) we now install required shared libraries on adapter installation on linux
+
 ### 0.2.0 (2022-05-20)
 * (foxriver76) added option to save files to the ioBroker storage via messages by using `ioBrokerOptions.storagePath` (closes #2)
 
