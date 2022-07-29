@@ -48,7 +48,7 @@ Interval in ms to wait till the page will be rendered
 ### Messages
 Alternatively you can take screenshots by sending messages to the adapter.
 All options beside from `url` and `ioBrokerOptions` are passed directly to the Puppeteer API, the currently supported parameters can be found
-below, for a more up-to-date version check the [API description](https://puppeteer.github.io/puppeteer/docs/puppeteer.screenshotoptions). 
+below, for a more up-to-date version check the [API description](https://pptr.dev/api/puppeteer.screenshotoptions). 
 Additionally, you can define a `waitOption` to wait for a given time or for a selector. Finally, you can use the `ioBrokerOptions.storagePath` 
 option to save screenshots directly to the ioBroker storage under `0_userdata.0` which can then be viewed via admin and visualization adapters.
 
