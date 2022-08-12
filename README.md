@@ -76,7 +76,13 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
          */
         waitForSelector?: '#testId'
       },
-      
+      /**
+       * Optionally, specify the viewport manually, see https://pptr.dev/api/puppeteer.viewport
+       */
+      viewportOptions?: {
+        width: 800,
+        height: 600
+      },
       /**
        * The file path to save the image to. The screenshot type will be inferred
        * from file extension. If path is a relative path, then it is resolved
@@ -132,6 +138,10 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.4 (2022-08-12)
+* (foxriver76) allow settings viewport options
+* (foxriver76) the default viewport is now the max resolution
+
 ### 0.2.3 (2022-08-12)
 * (foxriver76) optimized path check for relative paths
 

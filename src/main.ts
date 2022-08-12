@@ -1,5 +1,5 @@
 import * as utils from '@iobroker/adapter-core';
-import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip } from 'puppeteer';
+import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip, Viewport } from 'puppeteer';
 import { isObject } from './lib/tools';
 import { normalize, resolve, sep as pathSeparator } from 'path';
 
@@ -18,7 +18,7 @@ class PuppeteerAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        this.browser = await puppeteer.launch({ headless: true });
+        this.browser = await puppeteer.launch({ headless: true, defaultViewport: null });
         this.subscribeStates('url');
         this.log.info('Ready to take screenshots');
     }
@@ -65,6 +65,7 @@ class PuppeteerAdapter extends utils.Adapter {
 
             const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
             const { storagePath } = PuppeteerAdapter.extractIoBrokerOptionsFromMessage(options);
+            const viewport = PuppeteerAdapter.extractViewportOptionsFromMessage(options);
 
             try {
                 if (options.path) {
@@ -78,6 +79,10 @@ class PuppeteerAdapter extends utils.Adapter {
                 // if wait options given, await them
                 if (waitMethod && waitMethod in page) {
                     await (page as any)[waitMethod](waitParameter);
+                }
+
+                if (viewport) {
+                    await page.setViewport(viewport);
                 }
 
                 const img = await page.screenshot(options);
@@ -259,6 +264,25 @@ class PuppeteerAdapter extends utils.Adapter {
 
         delete options.ioBrokerOptions;
         return { storagePath };
+    }
+
+    /**
+     * Extracts the viewport specific options from the message
+     *
+     * @param options obj.message part of a message passed by user
+     */
+    private static extractViewportOptionsFromMessage(options: Record<string, any>): Viewport | undefined {
+        let viewportOptions: Viewport | undefined;
+        if (
+            isObject(options.viewportOptions) &&
+            typeof options.viewportOptions.width === 'number' &&
+            typeof options.viewportOptions.height === 'number'
+        ) {
+            viewportOptions = options.viewportOptions as Viewport;
+        }
+
+        delete options.viewportOptions;
+        return viewportOptions;
     }
 
     /**

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "news": {
+      "0.2.4": {
+        "en": "allow settings viewport options\nthe default viewport is now the max resolution",
+        "de": "optionen für einstellungen anzeigen\nder standard-viewport ist jetzt die maximale auflösung",
+        "ru": "разрешить настройки viewport варианты\nviewport по умолчанию теперь максимальное разрешение",
+        "pt": "permitir opções de visualização de configurações\no viewport padrão é agora a resolução máxima",
+        "nl": "vertaling:\nhet betreffende uitzicht is nu de maximale oplossing",
+        "fr": "les options de visualisation des paramètres\nle viewport par défaut est maintenant la résolution max",
+        "it": "consentire impostazioni viewport opzioni\nla vista predefinita è ora la risoluzione massima",
+        "es": "permite opciones de configuración viewport\nel puerto de vista predeterminado es ahora la resolución máxima",
+        "pl": "pozwalać na użycie opcji widokowej\ndomyślny portal to obecnie maxową rozdzielczość",
+        "zh-cn": "允许环境选择\n现在,拖欠国是最高决议。"
+      },
       "0.2.3": {
         "en": "optimized path check for relative paths",
         "de": "optimierte wegkontrolle für relative pfade",

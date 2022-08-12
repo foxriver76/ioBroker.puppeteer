@@ -43,7 +43,7 @@ class PuppeteerAdapter extends utils.Adapter {
     this.on("message", this.onMessage.bind(this));
   }
   async onReady() {
-    this.browser = await import_puppeteer.default.launch({ headless: true });
+    this.browser = await import_puppeteer.default.launch({ headless: true, defaultViewport: null });
     this.subscribeStates("url");
     this.log.info("Ready to take screenshots");
   }
@@ -77,6 +77,7 @@ class PuppeteerAdapter extends utils.Adapter {
       }
       const { waitMethod, waitParameter } = PuppeteerAdapter.extractWaitOptionFromMessage(options);
       const { storagePath } = PuppeteerAdapter.extractIoBrokerOptionsFromMessage(options);
+      const viewport = PuppeteerAdapter.extractViewportOptionsFromMessage(options);
       try {
         if (options.path) {
           this.validatePath(options.path);
@@ -85,6 +86,9 @@ class PuppeteerAdapter extends utils.Adapter {
         await page.goto(url, { waitUntil: "networkidle2" });
         if (waitMethod && waitMethod in page) {
           await page[waitMethod](waitParameter);
+        }
+        if (viewport) {
+          await page.setViewport(viewport);
         }
         const img = await page.screenshot(options);
         if (storagePath) {
@@ -204,6 +208,14 @@ class PuppeteerAdapter extends utils.Adapter {
     }
     delete options.ioBrokerOptions;
     return { storagePath };
+  }
+  static extractViewportOptionsFromMessage(options) {
+    let viewportOptions;
+    if ((0, import_tools.isObject)(options.viewportOptions) && typeof options.viewportOptions.width === "number" && typeof options.viewportOptions.height === "number") {
+      viewportOptions = options.viewportOptions;
+    }
+    delete options.viewportOptions;
+    return viewportOptions;
   }
   static extractWaitOptionFromMessage(options) {
     let waitMethod;
