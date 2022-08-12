@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "optimized path check for relative paths",
+        "de": "optimierte wegkontrolle für relative pfade",
+        "ru": "оптимизированная проверка пути для относительных путей",
+        "pt": "verificação de caminho otimizado para caminhos relativos",
+        "nl": "optimaal pad controle voor relatieve paden",
+        "fr": "vérification de chemin optimisé pour les chemins relatifs",
+        "it": "controllo percorso ottimizzato per percorsi relativi",
+        "es": "verificación de ruta optimizada para caminos relativos",
+        "pl": "zoptymalizował sposób sprawdzania względnych dróg",
+        "zh-cn": "优化相对道路检查"
+      },
       "0.2.1": {
         "en": "we now install required shared libraries on adapter installation on linux",
         "de": "wir installieren jetzt benötigte freigegebene bibliotheken auf adapter-installation auf linux",

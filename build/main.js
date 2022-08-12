@@ -172,12 +172,12 @@ class PuppeteerAdapter extends utils.Adapter {
     return options;
   }
   validatePath(path) {
-    path = (0, import_path.normalize)(path);
+    path = (0, import_path.resolve)((0, import_path.normalize)(path));
     this.log.debug(`Checking path "${path}"`);
     if (path.startsWith(utils.getAbsoluteDefaultDataDir())) {
       throw new Error("Screenshots cannot be stored inside the ioBroker storage");
     }
-    if (path.includes((0, import_path.normalize)("/node_modules/"))) {
+    if (path.includes((0, import_path.normalize)(`${import_path.sep}node_modules${import_path.sep}`))) {
       throw new Error("Screenshots cannot be stored inside a node_modules folder");
     }
   }

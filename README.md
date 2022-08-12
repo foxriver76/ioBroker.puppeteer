@@ -132,6 +132,9 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.2 (2022-08-12)
+* (foxriver76) optimized path check for relative paths
+
 ### 0.2.1 (2022-06-09)
 * (foxriver76) we now install required shared libraries on adapter installation on linux
 

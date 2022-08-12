@@ -1,7 +1,7 @@
 import * as utils from '@iobroker/adapter-core';
 import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip } from 'puppeteer';
 import { isObject } from './lib/tools';
-import { normalize } from 'path';
+import { normalize, resolve, sep as pathSeparator } from 'path';
 
 class PuppeteerAdapter extends utils.Adapter {
     private browser: Browser | undefined;
@@ -210,14 +210,14 @@ class PuppeteerAdapter extends utils.Adapter {
      * @param path path to check
      */
     private validatePath(path: string): void {
-        path = normalize(path);
+        path = resolve(normalize(path));
         this.log.debug(`Checking path "${path}"`);
 
         if (path.startsWith(utils.getAbsoluteDefaultDataDir())) {
             throw new Error('Screenshots cannot be stored inside the ioBroker storage');
         }
 
-        if (path.includes(normalize('/node_modules/'))) {
+        if (path.includes(normalize(`${pathSeparator}node_modules${pathSeparator}`))) {
             throw new Error('Screenshots cannot be stored inside a node_modules folder');
         }
     }
