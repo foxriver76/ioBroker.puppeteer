@@ -217,7 +217,7 @@ class PuppeteerAdapter extends utils.Adapter {
             throw new Error('Screenshots cannot be stored inside the ioBroker storage');
         }
 
-        if (path.includes(normalize(`${pathSeparator}node_modules${pathSeparator}`))) {
+        if (path.includes(`${pathSeparator}node_modules${pathSeparator}`)) {
             throw new Error('Screenshots cannot be stored inside a node_modules folder');
         }
     }

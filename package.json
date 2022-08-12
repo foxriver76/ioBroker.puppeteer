@@ -1,6 +1,6 @@
 {
   "name": "iobroker.puppeteer",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Headless browser to generate screenshots based on Chrome",
   "author": {
     "name": "Moritz Heusinger",

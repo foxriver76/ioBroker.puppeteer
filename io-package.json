@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "news": {
-      "0.2.2": {
+      "0.2.3": {
         "en": "optimized path check for relative paths",
         "de": "optimierte wegkontrolle für relative pfade",
         "ru": "оптимизированная проверка пути для относительных путей",
