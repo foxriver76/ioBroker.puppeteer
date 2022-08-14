@@ -138,6 +138,9 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.6 (2022-08-14)
+* (foxriver76) we now close the page also when screenshot taken via message
+
 ### 0.2.5 (2022-08-14)
 * (foxriver76) we have optimized the viewport option
 

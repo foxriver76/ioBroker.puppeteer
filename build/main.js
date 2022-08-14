@@ -95,6 +95,7 @@ class PuppeteerAdapter extends utils.Adapter {
           this.log.debug(`Write file to "${storagePath}"`);
           await this.writeFileAsync("0_userdata.0", storagePath, img);
         }
+        await page.close();
         this.sendTo(obj.from, obj.command, { result: img }, obj.callback);
       } catch (e) {
         this.log.error(`Could not take screenshot of "${url}": ${e.message}`);

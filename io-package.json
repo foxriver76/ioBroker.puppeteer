@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "news": {
+      "0.2.6": {
+        "en": "we now close the page also when screenshot taken via message",
+        "de": "wir schließen jetzt die seite auch, wenn screenshot über nachricht aufgenommen",
+        "ru": "мы теперь закрываем страницу также когда скриншот сделанный через сообщение",
+        "pt": "nós agora fechamos a página também quando a captura de tela tirada através da mensagem",
+        "nl": "we sluiten de pagina ook als de screenshot via de boodschap",
+        "fr": "nous fermons maintenant la page aussi quand capture d'écran prise via message",
+        "it": "ora chiudiamo la pagina anche quando screenshot preso tramite messaggio",
+        "es": "ahora cerramos la página también cuando capturamos la pantalla a través del mensaje",
+        "pl": "zbliża się również do ekranu, który został wykonany za pośrednictwem wiadomości",
+        "zh-cn": "我们现在关闭该页。"
+      },
       "0.2.5": {
         "en": "we have optimized the viewport option",
         "de": "wir haben die option viewport optimiert",
@@ -74,18 +86,6 @@
         "es": "Versión inicial",
         "pl": "Pierwsze wydanie",
         "zh-cn": "初始发行"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版"
       }
     },
     "title": "Puppeteer",
