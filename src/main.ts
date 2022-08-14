@@ -74,15 +74,15 @@ class PuppeteerAdapter extends utils.Adapter {
 
                 const page = await this.browser.newPage();
 
+                if (viewport) {
+                    await page.setViewport(viewport);
+                }
+
                 await page.goto(url, { waitUntil: 'networkidle2' });
 
                 // if wait options given, await them
                 if (waitMethod && waitMethod in page) {
                     await (page as any)[waitMethod](waitParameter);
-                }
-
-                if (viewport) {
-                    await page.setViewport(viewport);
                 }
 
                 const img = await page.screenshot(options);

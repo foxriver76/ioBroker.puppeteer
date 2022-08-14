@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "news": {
+      "0.2.5": {
+        "en": "we have optimized the viewport option",
+        "de": "wir haben die option viewport optimiert",
+        "ru": "мы оптимизировали опцию viewport",
+        "pt": "nós temos otimizado a opção viewport",
+        "nl": "we hebben de uitzichtsoptie",
+        "fr": "nous avons optimisé l'option viewport",
+        "it": "abbiamo ottimizzato l'opzione viewport",
+        "es": "hemos optimizado la opción viewport",
+        "pl": "zoptymalizowano opcję teleportu",
+        "zh-cn": "我们最佳地利用了看法。"
+      },
       "0.2.4": {
         "en": "allow settings viewport options\nthe default viewport is now the max resolution",
         "de": "optionen für einstellungen anzeigen\nder standard-viewport ist jetzt die maximale auflösung",
