@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "news": {
+      "0.2.7": {
+        "en": "update puppeteer dependency",
+        "de": "aktualisierung puppeteer abhängigkeit",
+        "ru": "обновить зависимость puppeteer",
+        "pt": "update puppeteer dependência",
+        "nl": "vertaling:",
+        "fr": "mettre à jour la dépendance des marionnettistes",
+        "it": "aggiornamento dipendenze del burattino",
+        "es": "actualización de la dependencia del titiritero",
+        "pl": "aktualizacja marionetki",
+        "uk": "оновлення залежності цуценя",
+        "zh-cn": "二. 重新依赖"
+      },
       "0.2.6": {
         "en": "we now close the page also when screenshot taken via message",
         "de": "wir schließen jetzt die seite auch, wenn screenshot über nachricht aufgenommen",
@@ -74,18 +87,6 @@
         "es": "Opción agregada para guardar archivos en el almacenamiento de ioBroker a través de mensajes usando `ioBrokerOptions.storagePath` (cierra #2)",
         "pl": "dodano opcję zapisywania plików do magazynu ioBroker za pomocą wiadomości przy użyciu `ioBrokerOptions.storagePath` (zamyka #2)",
         "zh-cn": "添加了使用 `ioBrokerOptions.storagePath` 通过消息将文件保存到 ioBroker 存储的选项（关闭 #2）"
-      },
-      "0.1.0": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Первый выпуск",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "初始发行"
       }
     },
     "title": "Puppeteer",
