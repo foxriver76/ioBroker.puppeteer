@@ -18,7 +18,7 @@ class PuppeteerAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        this.browser = await puppeteer.launch({ headless: true, defaultViewport: null });
+        this.browser = await puppeteer.launch({ headless: 'new', defaultViewport: null });
         this.subscribeStates('url');
         this.log.info('Ready to take screenshots');
     }
