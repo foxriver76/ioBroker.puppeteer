@@ -18,7 +18,19 @@ class PuppeteerAdapter extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        this.browser = await puppeteer.launch({ headless: 'new', defaultViewport: null });
+        let additionalArgs: string[] | undefined;
+
+        if (this.config.additionalArgs) {
+            additionalArgs = this.config.additionalArgs.map(entry => entry.Argument);
+        }
+
+        this.log.debug(`Additional arguments: ${JSON.stringify(additionalArgs)}`);
+
+        this.browser = await puppeteer.launch({
+            headless: true,
+            defaultViewport: null,
+            args: additionalArgs
+        });
         this.subscribeStates('url');
         this.log.info('Ready to take screenshots');
     }
@@ -245,7 +257,7 @@ class PuppeteerAdapter extends utils.Adapter {
         const renderTimeMs = (await this.getStateAsync('renderTime'))?.val;
         if (renderTimeMs && typeof renderTimeMs === 'number') {
             this.log.debug(`Waiting for timeout "${renderTimeMs}" ms`);
-            await page.waitForTimeout(renderTimeMs);
+            await this.delay(renderTimeMs);
             return;
         }
     }

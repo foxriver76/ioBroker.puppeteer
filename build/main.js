@@ -30,7 +30,16 @@ class PuppeteerAdapter extends utils.Adapter {
     this.on("message", this.onMessage.bind(this));
   }
   async onReady() {
-    this.browser = await import_puppeteer.default.launch({ headless: "new", defaultViewport: null });
+    let additionalArgs;
+    if (this.config.additionalArgs) {
+      additionalArgs = this.config.additionalArgs.map((entry) => entry.Argument);
+    }
+    this.log.debug(`Additional arguments: ${JSON.stringify(additionalArgs)}`);
+    this.browser = await import_puppeteer.default.launch({
+      headless: true,
+      defaultViewport: null,
+      args: additionalArgs
+    });
     this.subscribeStates("url");
     this.log.info("Ready to take screenshots");
   }
@@ -189,7 +198,7 @@ class PuppeteerAdapter extends utils.Adapter {
     const renderTimeMs = (_b = await this.getStateAsync("renderTime")) == null ? void 0 : _b.val;
     if (renderTimeMs && typeof renderTimeMs === "number") {
       this.log.debug(`Waiting for timeout "${renderTimeMs}" ms`);
-      await page.waitForTimeout(renderTimeMs);
+      await this.delay(renderTimeMs);
       return;
     }
   }

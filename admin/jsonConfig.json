@@ -1,0 +1,38 @@
+{
+  "type": "panel",
+  "i18n": {
+    "additionalLaunchArgs": {
+      "en": "Additional arguments passed to the Puppeteer process",
+      "de": "Zusätzliche Argumente, die dem Puppeteer-Prozess übergeben werden",
+      "ru": "Дополнительные аргументы, переданные в процесс Puppeteer",
+      "pt": "Outros argumentos passaram para o processo Puppeteer",
+      "nl": "Aanvullende argumenten voor het Puppeteerproces",
+      "fr": "Autres arguments transmis au processus Puppeteer",
+      "it": "Ulteriori argomenti passati al processo Puppeteer",
+      "es": "Otros argumentos pasaron al proceso Puppeteer",
+      "pl": "Dodatkowe argumenty przekazane do procesu Puppeteer",
+      "uk": "Додаткові аргументи передані до процесу цуценя",
+      "zh-cn": "向Puppeteer进程提出的其他论点"
+    }
+  },
+  "items": {
+    "additionalArgs": {
+      "label": "additionalLaunchArgs",
+      "type": "table",
+      "uniqueColumns": ["Argument"],
+      "xs": 12,
+      "items": [{
+        "attr": "Argument",
+        "label": "Argument",
+        "filter": false,
+        "sort": false,
+        "type": "autocomplete",
+        "freeSolo": true,
+        "options": [
+          "--disable-lcd-text",
+          "--disable-composited-antialiasing"
+        ]
+      }]
+    }
+  }
+}

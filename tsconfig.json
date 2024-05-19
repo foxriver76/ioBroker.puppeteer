@@ -37,7 +37,6 @@
 
         "sourceMap": true,
         "inlineSourceMap": false,
-        "watch": false,
         "useUnknownInCatchVariables": false
     },
     "include": ["src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],

@@ -123,7 +123,6 @@
       "visualization",
       "browser"
     ],
-    "license": "MIT",
     "platform": "Javascript/Node.js",
     "main": "build/main.js",
     "icon": "puppeteer.png",
@@ -133,7 +132,7 @@
     "loglevel": "info",
     "mode": "daemon",
     "adminUI": {
-      "config": "none"
+      "config": "json"
     },
     "type": "utility",
     "messagebox": true,
@@ -185,9 +184,16 @@
         "wget",
         "xdg-utils"
       ]
+    },
+    "tier": 2,
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
     }
   },
-  "native": {},
+  "native": {
+    "additionalArgs": []
+  },
   "objects": [],
   "instanceObjects": [
     {
