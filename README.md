@@ -138,7 +138,7 @@ sendTo('puppeteer.0', 'screenshot', { url: 'https://www.google.com',
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.3.0 (2024-05-19)
 * (foxriver76) allowed to specify additional arguments for the puppeteer process
 * (foxriver76) updated puppeteer dependency
 

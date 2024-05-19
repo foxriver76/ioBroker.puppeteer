@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.2.8",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "allowed to specify additional arguments for the puppeteer process\nupdated puppeteer dependency",
+        "de": "erlaubt, zusätzliche argumente für den puppenspieler-prozess anzugeben\naktualisierte puppeteer abhängigkeit",
+        "ru": "разрешено указывать дополнительные аргументы для марионеточного процесса\nобновленная зависимость марионеток",
+        "pt": "permitido especificar argumentos adicionais para o processo de puppeteer\ndependência puppeteer atualizada",
+        "nl": "mag aanvullende argumenten voor het puppeteerproces specificeren\nbijgewerkt puppeteer afhankelijkheid",
+        "fr": "permis de spécifier des arguments supplémentaires pour le processus marionnettiste\nmise à jour de la dépendance des marionnettistes",
+        "it": "permesso di specificare ulteriori argomenti per il processo di burattinaio\ndipendenza del burattino aggiornata",
+        "es": "permite especificar argumentos adicionales para el proceso del titiritero\ndependencia actualizada del titiritero",
+        "pl": "dozwolone określenie dodatkowych argumentów dla procesu lalkarza\nzaktualizowana zależność lalkarza",
+        "uk": "дозволило вказати додаткові аргументи для процесу цуценя\nоновлена залежність цуценя",
+        "zh-cn": "允许指定傀儡进程的其他参数\n更新的傀儡依赖"
+      },
       "0.2.8": {
         "en": "update puppeteer dependency",
         "de": "aktualisierung puppeteer abhängigkeit",
@@ -76,18 +89,6 @@
         "es": "verificación de ruta optimizada para caminos relativos",
         "pl": "zoptymalizował sposób sprawdzania względnych dróg",
         "zh-cn": "优化相对道路检查"
-      },
-      "0.2.1": {
-        "en": "we now install required shared libraries on adapter installation on linux",
-        "de": "wir installieren jetzt benötigte freigegebene bibliotheken auf adapter-installation auf linux",
-        "ru": "мы теперь устанавливаем необходимые общие библиотеки на адаптере установки на linux",
-        "pt": "agora instalamos bibliotecas compartilhadas necessárias na instalação do adaptador no linux",
-        "nl": "we installeren nu gedeelde bibliotheken op de linux",
-        "fr": "nous installons maintenant les bibliothèques partagées nécessaires sur l'installation d'adaptateurs sur linux",
-        "it": "ora installiamo librerie condivise richieste sull'installazione dell'adattatore su linux",
-        "es": "ahora instalamos bibliotecas compartidas requeridas en la instalación de adaptador en linux",
-        "pl": "obecnie potrzebna jest instalacja bibliotek wspólnych na instalacji adapterowej na linux",
-        "zh-cn": "我们现在安装了必要的共同图书馆,供电器安装。"
       }
     },
     "title": "Puppeteer",
