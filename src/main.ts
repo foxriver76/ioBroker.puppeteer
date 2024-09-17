@@ -1,5 +1,6 @@
 import * as utils from '@iobroker/adapter-core';
-import puppeteer, { Page, Browser, ScreenshotOptions, ScreenshotClip, Viewport } from 'puppeteer';
+import type { Page, Browser, ScreenshotOptions, ScreenshotClip, Viewport } from 'puppeteer';
+import puppeteer from 'puppeteer';
 import { isObject } from './lib/tools';
 import { normalize, resolve, sep as pathSeparator } from 'path';
 
@@ -37,6 +38,8 @@ class PuppeteerAdapter extends utils.Adapter {
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
+     *
+     * @param callback callback which needs to be called
      */
     private async onUnload(callback: () => void): Promise<void> {
         try {
@@ -53,6 +56,8 @@ class PuppeteerAdapter extends utils.Adapter {
 
     /**
      * Is called when message received
+     *
+     * @param obj the ioBroker message object
      */
     private async onMessage(obj: ioBroker.Message): Promise<void> {
         if (!this.browser) {
@@ -100,7 +105,7 @@ class PuppeteerAdapter extends utils.Adapter {
                 const img = await page.screenshot(options);
                 if (storagePath) {
                     this.log.debug(`Write file to "${storagePath}"`);
-                    await this.writeFileAsync('0_userdata.0', storagePath, img);
+                    await this.writeFileAsync('0_userdata.0', storagePath, Buffer.from(img));
                 }
 
                 await page.close();
@@ -122,6 +127,9 @@ class PuppeteerAdapter extends utils.Adapter {
 
     /**
      * Is called if a subscribed state changes
+     *
+     * @param id id of the changed state
+     * @param state the state object
      */
     private async onStateChange(id: string, state: ioBroker.State | null | undefined): Promise<void> {
         if (!this.browser) {
@@ -225,6 +233,7 @@ class PuppeteerAdapter extends utils.Adapter {
 
     /**
      * Validates that the given path is valid to save a screenshot too, prevents node_modules and dataDir
+     *
      * @param path path to check
      */
     private validatePath(path: string): void {

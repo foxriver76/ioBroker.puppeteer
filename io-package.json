@@ -125,7 +125,6 @@
       "browser"
     ],
     "platform": "Javascript/Node.js",
-    "main": "build/main.js",
     "icon": "puppeteer.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/foxriver76/ioBroker.puppeteer/main/admin/puppeteer.png",
@@ -142,7 +141,7 @@
     "dataSource": "poll",
     "dependencies": [
       {
-        "js-controller": ">=3.0.0"
+        "js-controller": ">=5.0.19"
       }
     ],
     "osDependencies": {

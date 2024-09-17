@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../src/lib/tools.ts"],
-  "sourcesContent": ["/**\n * Tests whether the given variable is a real object and not an Array\n * @param it The variable to test\n * @returns true if it is Record<string, any>\n */\nexport function isObject(it: any): it is Record<string, any> {\n    return Object.prototype.toString.call(it) === '[object Object]';\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAKO,SAAS,SAAS,IAAoC;AACzD,SAAO,OAAO,UAAU,SAAS,KAAK,EAAE,MAAM;AAClD;",
+  "sourcesContent": ["/**\n * Tests whether the given variable is a real object and not an Array\n *\n * @param it The variable to test\n * @returns true if it is Record<string, any>\n */\nexport function isObject(it: any): it is Record<string, any> {\n    return Object.prototype.toString.call(it) === '[object Object]';\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAMO,SAAS,SAAS,IAAoC;AACzD,SAAO,OAAO,UAAU,SAAS,KAAK,EAAE,MAAM;AAClD;",
   "names": []
 }

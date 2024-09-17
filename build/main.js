@@ -14,6 +14,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -29,6 +33,9 @@ class PuppeteerAdapter extends utils.Adapter {
     this.on("unload", this.onUnload.bind(this));
     this.on("message", this.onMessage.bind(this));
   }
+  /**
+   * Is called when databases are connected and adapter received configuration.
+   */
   async onReady() {
     let additionalArgs;
     if (this.config.additionalArgs) {
@@ -43,6 +50,11 @@ class PuppeteerAdapter extends utils.Adapter {
     this.subscribeStates("url");
     this.log.info("Ready to take screenshots");
   }
+  /**
+   * Is called when adapter shuts down - callback has to be called under any circumstances!
+   *
+   * @param callback callback which needs to be called
+   */
   async onUnload(callback) {
     try {
       if (this.browser) {
@@ -55,6 +67,11 @@ class PuppeteerAdapter extends utils.Adapter {
       callback();
     }
   }
+  /**
+   * Is called when message received
+   *
+   * @param obj the ioBroker message object
+   */
   async onMessage(obj) {
     if (!this.browser) {
       return;
@@ -89,7 +106,7 @@ class PuppeteerAdapter extends utils.Adapter {
         const img = await page.screenshot(options);
         if (storagePath) {
           this.log.debug(`Write file to "${storagePath}"`);
-          await this.writeFileAsync("0_userdata.0", storagePath, img);
+          await this.writeFileAsync("0_userdata.0", storagePath, Buffer.from(img));
         }
         await page.close();
         this.sendTo(obj.from, obj.command, { result: img }, obj.callback);
@@ -107,6 +124,12 @@ class PuppeteerAdapter extends utils.Adapter {
       );
     }
   }
+  /**
+   * Is called if a subscribed state changes
+   *
+   * @param id id of the changed state
+   * @param state the state object
+   */
   async onStateChange(id, state) {
     if (!this.browser) {
       return;
@@ -138,6 +161,9 @@ class PuppeteerAdapter extends utils.Adapter {
       }
     }
   }
+  /**
+   * Determines the ScreenshotOptions by the current configuration states
+   */
   async gatherScreenshotOptions() {
     const options = {};
     const filenameState = await this.getStateAsync("filename");
@@ -158,6 +184,9 @@ class PuppeteerAdapter extends utils.Adapter {
     }
     return options;
   }
+  /**
+   * Determines the ScreenshotClipOptions by the current configuration states
+   */
   async gatherScreenshotClipOptions() {
     const options = {};
     const clipAttributes = {
@@ -177,6 +206,11 @@ class PuppeteerAdapter extends utils.Adapter {
     }
     return options;
   }
+  /**
+   * Validates that the given path is valid to save a screenshot too, prevents node_modules and dataDir
+   *
+   * @param path path to check
+   */
   validatePath(path) {
     path = (0, import_path.resolve)((0, import_path.normalize)(path));
     this.log.debug(`Checking path "${path}"`);
@@ -187,6 +221,11 @@ class PuppeteerAdapter extends utils.Adapter {
       throw new Error("Screenshots cannot be stored inside a node_modules folder");
     }
   }
+  /**
+   * Waits until the user configured conditions are fullfilled
+   *
+   * @param page active page object
+   */
   async waitForConditions(page) {
     var _a, _b;
     const selector = (_a = await this.getStateAsync("waitForSelector")) == null ? void 0 : _a.val;
@@ -202,6 +241,11 @@ class PuppeteerAdapter extends utils.Adapter {
       return;
     }
   }
+  /**
+   * Extracts the ioBroker specific options from the message
+   *
+   * @param options obj.message part of a message passed by user
+   */
   static extractIoBrokerOptionsFromMessage(options) {
     var _a;
     let storagePath;
@@ -211,6 +255,11 @@ class PuppeteerAdapter extends utils.Adapter {
     delete options.ioBrokerOptions;
     return { storagePath };
   }
+  /**
+   * Extracts the viewport specific options from the message
+   *
+   * @param options obj.message part of a message passed by user
+   */
   static extractViewportOptionsFromMessage(options) {
     let viewportOptions;
     if ((0, import_tools.isObject)(options.viewportOptions) && typeof options.viewportOptions.width === "number" && typeof options.viewportOptions.height === "number") {
@@ -219,6 +268,11 @@ class PuppeteerAdapter extends utils.Adapter {
     delete options.viewportOptions;
     return viewportOptions;
   }
+  /**
+   * Extracts the waitOption from a message
+   *
+   * @param options obj.message part of a message passed by user
+   */
   static extractWaitOptionFromMessage(options) {
     let waitMethod;
     let waitParameter;
