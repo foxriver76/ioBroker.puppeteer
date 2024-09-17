@@ -14,8 +14,8 @@
         "noEmitOnError": true,
         "outDir": "./build/",
         "removeComments": false,
-        "module": "commonjs",
-        "moduleResolution": "node",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         // this is necessary for the automatic typing of the adapter config
         "resolveJsonModule": true,
@@ -39,6 +39,6 @@
         "inlineSourceMap": false,
         "useUnknownInCatchVariables": false
     },
-    "include": ["src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],
+    "include": ["*.config.mjs", "src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],
     "exclude": ["build/**", "node_modules/**"]
 }
