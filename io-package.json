@@ -192,7 +192,9 @@
     }
   },
   "native": {
-    "additionalArgs": []
+    "additionalArgs": [],
+    "useExternalBrowser": false,
+    "executablePath": ""
   },
   "objects": [],
   "instanceObjects": [

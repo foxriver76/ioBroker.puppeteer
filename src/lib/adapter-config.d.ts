@@ -6,6 +6,10 @@ declare global {
         interface AdapterConfig {
             /** Additional args for puppeteer launch */
             additionalArgs: { Argument: string }[];
+            /** If an external browser should be used, specified by `executablePath` */
+            useExternalBrowser: boolean;
+            /** Optional executable path to use external browser */
+            executablePath: string;
         }
     }
 }

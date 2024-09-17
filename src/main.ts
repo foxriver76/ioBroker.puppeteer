@@ -30,6 +30,7 @@ class PuppeteerAdapter extends utils.Adapter {
         this.browser = await puppeteer.launch({
             headless: true,
             defaultViewport: null,
+            executablePath: this.config.useExternalBrowser ? this.config.executablePath : undefined,
             args: additionalArgs
         });
         this.subscribeStates('url');

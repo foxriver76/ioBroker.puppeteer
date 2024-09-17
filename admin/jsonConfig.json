@@ -13,10 +13,48 @@
       "pl": "Dodatkowe argumenty przekazane do procesu Puppeteer",
       "uk": "Додаткові аргументи передані до процесу цуценя",
       "zh-cn": "向Puppeteer进程提出的其他论点"
+    },
+    "useExternalBrowser": {
+      "en": "Use external browser",
+      "de": "Externen Browser verwenden",
+      "ru": "Используйте внешний браузер",
+      "pt": "Utilizar um navegador externo",
+      "nl": "Externe browser gebruiken",
+      "fr": "Utiliser un navigateur externe",
+      "it": "Utilizzare un browser esterno",
+      "es": "Utilizar un navegador externo",
+      "pl": "Korzystanie z zewnętrznej przeglądarki",
+      "uk": "Використовуйте зовнішній браузер",
+      "zh-cn": "使用外部浏览器"
+    },
+    "executablePath": {
+      "en": "Path to the external browser",
+      "de": "Pfad zum externen Browser",
+      "ru": "Путь к внешнему браузеру",
+      "pt": "Caminho para o navegador externo",
+      "nl": "Pad naar de externe browser",
+      "fr": "Chemin d'accès au navigateur externe",
+      "it": "Percorso del browser esterno",
+      "es": "Ruta al navegador externo",
+      "pl": "Ścieżka do zewnętrznej przeglądarki",
+      "uk": "Шлях до зовнішнього браузера",
+      "zh-cn": "外部浏览器的路径"
     }
   },
   "items": {
+    "useExternalBrowser": {
+      "type": "checkbox",
+      "label": "useExternalBrowser"
+    },
+    "executablePath": {
+      "placeholder": "/usr/bin/chromium-browser",
+      "hidden": "!data.useExternalBrowser",
+      "newLine": true,
+      "type": "text",
+      "label": "executablePath"
+    },
     "additionalArgs": {
+      "newLine": true,
       "label": "additionalLaunchArgs",
       "type": "table",
       "uniqueColumns": ["Argument"],
