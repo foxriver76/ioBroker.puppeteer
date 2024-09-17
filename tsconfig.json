@@ -39,6 +39,6 @@
         "inlineSourceMap": false,
         "useUnknownInCatchVariables": false
     },
-    "include": ["*.config.mjs", "src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],
+    "include": ["src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],
     "exclude": ["build/**", "node_modules/**"]
 }
