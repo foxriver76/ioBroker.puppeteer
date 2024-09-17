@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "news": {
+      "0.4.0": {
+        "en": "updated puppeteer dependency\nallow to specify an external browser for puppeteer",
+        "de": "aktualisierte puppeteer abhängigkeit\neinen externen browser für puppenspieler angeben",
+        "ru": "обновленная зависимость марионеток\nразрешить указать внешний браузер для марионетки",
+        "pt": "dependência puppeteer atualizada\npermitir especificar um navegador externo para puppeteer",
+        "nl": "bijgewerkt puppeteer afhankelijkheid\nstaat toe om een externe browser voor puppeter op te geven",
+        "fr": "mise à jour de la dépendance des marionnettistes\npermettre de spécifier un navigateur externe pour marionnettiste",
+        "it": "dipendenza del burattino aggiornata\nconsentire di specificare un browser esterno per burattinaio",
+        "es": "dependencia actualizada del titiritero\npermite especificar un navegador externo para titiritero",
+        "pl": "zaktualizowana zależność lalkarza\npozwala na określenie zewnętrznej przeglądarki dla lalkarza",
+        "uk": "оновлена залежність цуценя\nдозволяє вказати зовнішній браузер для цуценя",
+        "zh-cn": "更新的傀儡依赖\n允许为傀儡指定外部浏览器"
+      },
       "0.3.0": {
         "en": "allowed to specify additional arguments for the puppeteer process\nupdated puppeteer dependency",
         "de": "erlaubt, zusätzliche argumente für den puppenspieler-prozess anzugeben\naktualisierte puppeteer abhängigkeit",
@@ -77,18 +90,6 @@
         "es": "permite opciones de configuración viewport\nel puerto de vista predeterminado es ahora la resolución máxima",
         "pl": "pozwalać na użycie opcji widokowej\ndomyślny portal to obecnie maxową rozdzielczość",
         "zh-cn": "允许环境选择\n现在,拖欠国是最高决议。"
-      },
-      "0.2.3": {
-        "en": "optimized path check for relative paths",
-        "de": "optimierte wegkontrolle für relative pfade",
-        "ru": "оптимизированная проверка пути для относительных путей",
-        "pt": "verificação de caminho otimizado para caminhos relativos",
-        "nl": "optimaal pad controle voor relatieve paden",
-        "fr": "vérification de chemin optimisé pour les chemins relatifs",
-        "it": "controllo percorso ottimizzato per percorsi relativi",
-        "es": "verificación de ruta optimizada para caminos relativos",
-        "pl": "zoptymalizował sposób sprawdzania względnych dróg",
-        "zh-cn": "优化相对道路检查"
       }
     },
     "title": "Puppeteer",
