@@ -13,8 +13,10 @@ class AsyncQueue {
     private activeCount = 0;
     private readonly maxConcurrent: number;
 
-    constructor(maxConcurrent: number) {
-        this.maxConcurrent = maxConcurrent;
+    constructor(maxConcurrent: unknown) {
+        // A negative or garbage value (manual config edit) would otherwise block the queue forever
+        const parsed = Number(maxConcurrent);
+        this.maxConcurrent = Number.isFinite(parsed) && parsed > 0 ? Math.max(1, Math.floor(parsed)) : 0;
     }
 
     public async add<T>(task: () => Promise<T>): Promise<T> {
@@ -146,6 +148,7 @@ class PuppeteerAdapter extends utils.Adapter {
                 await this.renderQueue!.add(async () => {
                     let page: Page | undefined;
                     let img: Uint8Array | undefined;
+                    let error: string | undefined;
                     try {
                         page = await this.browser!.newPage();
                         // Bound subsequent ops (waitForSelector, screenshot, …) so they cannot hang forever.
@@ -171,21 +174,25 @@ class PuppeteerAdapter extends utils.Adapter {
                             await this.writeFileAsync('0_userdata.0', storagePath, Buffer.from(img));
                         }
                     } catch (e) {
+                        error = e.message;
                         this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
                     } finally {
                         await PuppeteerAdapter.safeClosePage(page);
                     }
 
+                    // A plain object, because an Error loses its message when serialized through the states database
                     this.sendTo(
                         obj.from,
                         obj.command,
-                        { result: img && encoding === 'base64' ? Buffer.from(img).toString('base64') : img },
+                        error
+                            ? { error: { message: error } }
+                            : { result: img && encoding === 'base64' ? Buffer.from(img).toString('base64') : img },
                         obj.callback,
                     );
                 });
             } catch (e) {
                 this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
-                this.sendTo(obj.from, obj.command, { error: e }, obj.callback);
+                this.sendTo(obj.from, obj.command, { error: { message: e.message } }, obj.callback);
             }
         } else {
             this.log.error(`Unsupported message command: ${obj.command}`);

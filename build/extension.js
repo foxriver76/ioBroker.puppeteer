@@ -64,6 +64,17 @@ function toNumber(value) {
   const parsed = parseFloat(value);
   return Number.isFinite(parsed) ? parsed : void 0;
 }
+function isHttpUrl(value) {
+  if (typeof value !== "string") {
+    return false;
+  }
+  try {
+    const { protocol } = new URL(value);
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
+}
 function describeError(error) {
   var _a;
   if (typeof error === "string") {
@@ -94,12 +105,19 @@ class PuppeteerWebExtension {
    */
   constructor(_server, _webSettings, adapter, instanceSettings, app) {
     this.unloaded = false;
+    var _a;
     this.app = app;
     this.adapter = adapter;
     this.namespace = instanceSettings ? instanceSettings._id.substring("system.adapter.".length) : "puppeteer";
     const config = (instanceSettings == null ? void 0 : instanceSettings.native) || {};
     const path = (config.webPath || this.namespace).toString().replace(/^\/+|\/+$/g, "");
     this.route = `/${path || this.namespace}`;
+    const webInstance = (_a = config.webInstance) != null ? _a : "*";
+    if (webInstance !== "*" && webInstance !== adapter.namespace) {
+      this.unloaded = true;
+      this.adapter.log.debug(`Puppeteer extension of ${this.namespace} is configured for "${webInstance}"`);
+      return;
+    }
     this.adapter.log.info(`Install puppeteer extension on "${this.route}/"`);
     this.app.use(this.route, (req, res, next) => {
       if (this.unloaded) {
@@ -157,6 +175,10 @@ class PuppeteerWebExtension {
     const { url } = query;
     if (!url) {
       res.status(400).json({ error: "Missing required parameter: url" });
+      return;
+    }
+    if (!isHttpUrl(url)) {
+      res.status(400).json({ error: "Parameter url must be an absolute http(s) URL" });
       return;
     }
     const encoding = query.encoding === "base64" ? "base64" : "binary";

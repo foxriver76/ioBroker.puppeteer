@@ -32,7 +32,8 @@ class AsyncQueue {
   constructor(maxConcurrent) {
     this.queue = [];
     this.activeCount = 0;
-    this.maxConcurrent = maxConcurrent;
+    const parsed = Number(maxConcurrent);
+    this.maxConcurrent = Number.isFinite(parsed) && parsed > 0 ? Math.max(1, Math.floor(parsed)) : 0;
   }
   async add(task) {
     if (this.maxConcurrent === 0) {
@@ -139,6 +140,7 @@ class PuppeteerAdapter extends utils.Adapter {
         await this.renderQueue.add(async () => {
           let page;
           let img;
+          let error;
           try {
             page = await this.browser.newPage();
             page.setDefaultTimeout(navigationTimeout);
@@ -157,6 +159,7 @@ class PuppeteerAdapter extends utils.Adapter {
               await this.writeFileAsync("0_userdata.0", storagePath, Buffer.from(img));
             }
           } catch (e) {
+            error = e.message;
             this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
           } finally {
             await PuppeteerAdapter.safeClosePage(page);
@@ -164,13 +167,13 @@ class PuppeteerAdapter extends utils.Adapter {
           this.sendTo(
             obj.from,
             obj.command,
-            { result: img && encoding === "base64" ? Buffer.from(img).toString("base64") : img },
+            error ? { error: { message: error } } : { result: img && encoding === "base64" ? Buffer.from(img).toString("base64") : img },
             obj.callback
           );
         });
       } catch (e) {
         this.log.error(`Could not take screenshot of "${url}": ${e.message}`);
-        this.sendTo(obj.from, obj.command, { error: e }, obj.callback);
+        this.sendTo(obj.from, obj.command, { error: { message: e.message } }, obj.callback);
       }
     } else {
       this.log.error(`Unsupported message command: ${obj.command}`);

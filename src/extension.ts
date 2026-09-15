@@ -101,6 +101,23 @@ function toNumber(value: unknown): number | undefined {
 }
 
 /**
+ * Checks that a query parameter is an absolute http(s) URL.
+ *
+ * @param value raw query value
+ */
+function isHttpUrl(value: unknown): boolean {
+    if (typeof value !== 'string') {
+        return false;
+    }
+    try {
+        const { protocol } = new URL(value);
+        return protocol === 'http:' || protocol === 'https:';
+    } catch {
+        return false;
+    }
+}
+
+/**
  * Turns whatever was thrown or answered into something readable.
  *
  * `String(new Error('...'))` is fine, but an error that travelled through the states database is a
@@ -167,6 +184,15 @@ export default class PuppeteerWebExtension {
         const path = (config.webPath || this.namespace).toString().replace(/^\/+|\/+$/g, '');
         this.route = `/${path || this.namespace}`;
 
+        // ioBroker.web already loads only extensions whose webInstance matches - checked again, so the
+        // extension never answers on a web instance it was not configured for
+        const webInstance = config.webInstance ?? '*';
+        if (webInstance !== '*' && webInstance !== adapter.namespace) {
+            this.unloaded = true;
+            this.adapter.log.debug(`Puppeteer extension of ${this.namespace} is configured for "${webInstance}"`);
+            return;
+        }
+
         this.adapter.log.info(`Install puppeteer extension on "${this.route}/"`);
 
         this.app.use(this.route, (req: Request, res: Response, next: NextFunction): void => {
@@ -228,6 +254,11 @@ export default class PuppeteerWebExtension {
 
         if (!url) {
             res.status(400).json({ error: 'Missing required parameter: url' });
+            return;
+        }
+        // Reachable over the network, so do not let it open file://, chrome:// and similar in the browser
+        if (!isHttpUrl(url)) {
+            res.status(400).json({ error: 'Parameter url must be an absolute http(s) URL' });
             return;
         }
 

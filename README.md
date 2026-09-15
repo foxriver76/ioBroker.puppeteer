@@ -179,7 +179,7 @@ Settings:
 - **Web instance** - which `web` instance serves the link (`*` = all of them).
 - **URL path** - the path the extension is mounted on (default `puppeteer`). It must be unique if several puppeteer instances extend the same web instance.
 
-With the defaults the screenshot is available at `http://<web-ip>:8082/puppeteer/?url=<URL>`, where URL is the page you want to capture.
+With the defaults the screenshot is available at `http://<web-ip>:8082/puppeteer/?url=<URL>`, where URL is the page you want to capture (absolute `http://` or `https://` URLs only).
 You can also specify additional parameters:
 - `fullPage=true` to take a screenshot of the full page
 - `waitForSelector=#testId` to wait for a given selector before taking the screenshot
