@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "puppeteer",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "Added a web extension for `ioBroker.web`, so screenshots can be taken by calling a link\nAdded the option to limit the simultaneous renders to avoid overload of the system\nFixed renderer-process leak when navigation or screenshot threw — pages are now always closed\nAdded per-request `waitUntil` and `navigationTimeout` parameters (message API + web server) to support live-data dashboards (vis, Lovelace, Grafana) without hitting the network-idle timeout",
+        "de": "Erweiterung für `ioBroker.Web` hinzugefügt, um Screenshots per Link zu machen\nOption zum gleichzeitigen Rendern hinzugefügt, um das System zu überlasten\nRenderer-Leck bei Navigation oder Screenshot behoben — Seiten sind jetzt immer geschlossen\nDie Parameter `WaitUntil` und `NavigationTimeout` pro Anfrage (Message-API und Webserver) wurden hinzugefügt, um Live-Daten-Dashboards (vis, Lovelace, Grafana) zu unterstützen",
+        "ru": "Добавлено веб-расширение для `IOBroker.web, поэтому скриншоты можно делать, перейдя по ссылке\nДобавлена возможность ограничить одновременные рендеринги, чтобы избежать перегрузки системы\nИсправлена утечка в процессе рендеринга при отображении навигации или скриншота — теперь страницы всегда закрыты\nДобавлены параметры «WaitUntil» и «NavigationTimeout» для каждого запроса (API сообщений и веб-сервер) для поддержки панелей управления данными в реальном времени (vis, Lovelace, Grafana) без истечения времени простоя сети",
+        "pt": "Adicionou uma extensão web para `IOBroker.web`, para capturas de tela com um link\nAdição da opção de limitar renderizações simultâneas para evitar sobrecarga\nCorrigido vazamento de renderização ao navegar ou capturar tela — as páginas estão sempre fechadas\nForam adicionados os parâmetros `waitUntil` e `navigationTimeout` por solicitação (API de mensagem+servidor web) para suportar painéis de dados ao vivo (vis, Lovelace, Grafana)",
+        "nl": "Een webextensie toegevoegd voor `IOBroker.web`, zodat schermafbeeldingen kunnen worden gemaakt door een link aan te roepen\nDe optie toegevoegd om het aantal gelijktijdige renderingen te beperken om overbelasting van het systeem te voorkomen\nLek in het renderproces opgelost toen de navigatie of schermafbeelding werd gemaakt — pagina's zijn nu altijd gesloten\nParameters `WaitUntil` en `NavigationTimeout` per aanvraag toegevoegd (message-API + webserver) om dashboards met live data te ondersteunen (vis, Lovelace, Grafana) zonder dat de time-out bij inactiviteit van het netwerk wordt overschreden",
+        "fr": "Ajout d'une extension Web pour « IObroker.Web », qui permet de faire des captures d'écran\nAjout de la possibilité de limiter les rendus simultanés pour éviter de surcharger le système\nCorrection d'une fuite lors de la navigation ou de la capture d'écran. Les pages sont désormais fermées\nAjout des paramètres « WaitUntil » et « NavigationTimeout » par demande (API de messages et serveur Web) pour gérer les tableaux de bord en temps réel (vis, Lovelace, Grafana) sans dépasser le délai d'inactivité",
+        "it": "Aggiunta l'estensione web per `IOBroker.web`, per fare screenshot a un link\nAggiunta l'opzione per limitare i render simultanei per sovraccaricare il sistema\nRisolto un problema di rendering durante la navigazione o lo screenshot: ora le pagine sono sempre chiuse\nAggiunti i parametri `waitUntil` e `NavigationTimeout` per richiesta (API messaggi + server web) per supportare dashboard di dati in tempo reale (vis, Lovelace, Grafana)",
+        "es": "Se ha añadido una extensión web para «IOBroker.Web» para hacer capturas de pantalla con un enlace\nSe ha añadido la opción de limitar los renderizados simultáneos para no sobrecargar el sistema\nSe corrigió la fuga del proceso de renderizado al navegar o capturar. Las páginas están siempre cerradas\nSe han añadido los parámetros «waitUntil» y «NavigationTimeout» por solicitud (API de mensajes + servidor web) para admitir paneles de datos en vivo (vis, Lovelace, Grafana) sin llegar al tiempo de espera de la red",
+        "pl": "Dodano rozszerzenie internetowe dla `IOBroker.web`, dzięki czemu można robić zrzuty ekranu, wywołując link\nDodano opcję ograniczenia jednoczesnych renderów, aby uniknąć przeciążenia systemu\nNaprawiono wyciek procesu renderowania podczas nawigacji lub rzucania zrzutu ekranu - strony są teraz zawsze zamknięte\nDodano parametry „WaitUntil” i „NavigationTimeout” na żądanie (komunikat API + serwer WWW) do obsługi pulpitów nawigacyjnych danych na żywo (vis, Lovelace, Grafana) bez przekroczenia limitu czasu bezczynności w sieci",
+        "uk": "Додано веб-розширення для `ioBroker.web`, тому скріншоти можна зробити, викликаючи посилання\nДодана можливість обмежити одночасні рендери, щоб уникнути перевантаження системи\nВиправлено витік процесу рендера під час навігації або знімка екрана - сторінки тепер завжди закриті\nДодано параметри для кожного запиту `WaiTuntil` та `NavigationTimeout` (API повідомлення+веб-сервер) для підтримки інформаційних панелей реальних даних (vis, Lovelace, Grafana) без натискання тайм-ауту простою мережі",
+        "zh-cn": "为 `iobroker.web`添加了网络扩展，因此可以通过调用链接来截取屏幕截图\n添加了限制同步渲染的选项，以避免系统过载\n修复了出现导航或屏幕截图时渲染器进程泄漏的问题-页面现在始终处于关闭状态\n添加了每个请求的 `waitUntil` 和 `NavigationTimeout` 参数（消息 API + Web 服务器），以在不达到网络空闲超时的情况下支持实时数据仪表板（vis、Lovelace、Grafana）"
+      },
       "1.0.0": {
         "en": "Adapter requires node.js >= 22 now.\nAdapter requires js-controller >= 6.0.11 now\nAdapter requires admin >= 7.7.22 now\nAdapter has been migrated to iobroker-community-adapters organisation",
         "de": "Adapter benötigt jetzt node.js >= 22.\nAdapter benötigt jetzt JS-Controller >= 6.0.11\nAdapter benötigt jetzt admin >= 7.7.22\nDer Adapter wurde zur Organisation Iobroker-Community-Adapters migriert",
@@ -79,18 +92,6 @@
         "es": "ahora cerramos la página también cuando capturamos la pantalla a través del mensaje",
         "pl": "zbliża się również do ekranu, który został wykonany za pośrednictwem wiadomości",
         "zh-cn": "我们现在关闭该页。"
-      },
-      "0.2.5": {
-        "en": "we have optimized the viewport option",
-        "de": "wir haben die option viewport optimiert",
-        "ru": "мы оптимизировали опцию viewport",
-        "pt": "nós temos otimizado a opção viewport",
-        "nl": "we hebben de uitzichtsoptie",
-        "fr": "nous avons optimisé l'option viewport",
-        "it": "abbiamo ottimizzato l'opzione viewport",
-        "es": "hemos optimizado la opción viewport",
-        "pl": "zoptymalizowano opcję teleportu",
-        "zh-cn": "我们最佳地利用了看法。"
       }
     },
     "titleLang": {

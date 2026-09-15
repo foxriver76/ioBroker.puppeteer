@@ -1,4 +1,7 @@
 # Older changes
+## 0.2.7 (2023-03-18)
+* (foxriver76) update puppeteer dependency
+
 ## 0.2.6 (2022-08-14)
 * (foxriver76) we now close the page also when screenshot taken via message
 

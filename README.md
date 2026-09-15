@@ -228,7 +228,7 @@ This adapter would not have been possible without the great work of @foxriver67 
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.1.0 (2026-09-15)
 * (@GermanBluefox) Added a web extension for `ioBroker.web`, so screenshots can be taken by calling a link
 * (@GermanBluefox) Added the option to limit the simultaneous renders to avoid overload of the system
 * (@GermanBluefox) Fixed renderer-process leak when navigation or screenshot threw — pages are now always closed
@@ -249,9 +249,6 @@ This adapter would not have been possible without the great work of @foxriver67 
 * (foxriver76) updated puppeteer dependency
 
 ### 0.2.8 (2024-01-09)
-* (foxriver76) update puppeteer dependency
-
-### 0.2.7 (2023-03-18)
 * (foxriver76) update puppeteer dependency
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
