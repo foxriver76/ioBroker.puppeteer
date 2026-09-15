@@ -196,12 +196,16 @@
       {
         "admin": ">=7.7.22"
       }
-    ]
+    ],
+    "webExtension": "build/extension.js"
   },
   "native": {
     "additionalArgs": [],
     "useExternalBrowser": false,
-    "executablePath": ""
+    "executablePath": "",
+    "maxParallelRenders": 0,
+    "webInstance": "*",
+    "webPath": "puppeteer"
   },
   "objects": [],
   "instanceObjects": [

@@ -1,76 +1,200 @@
 {
-  "type": "panel",
-  "i18n": {
-    "additionalLaunchArgs": {
-      "en": "Additional arguments passed to the Puppeteer process",
-      "de": "Zusätzliche Argumente, die dem Puppeteer-Prozess übergeben werden",
-      "ru": "Дополнительные аргументы, переданные в процесс Puppeteer",
-      "pt": "Outros argumentos passaram para o processo Puppeteer",
-      "nl": "Aanvullende argumenten voor het Puppeteerproces",
-      "fr": "Autres arguments transmis au processus Puppeteer",
-      "it": "Ulteriori argomenti passati al processo Puppeteer",
-      "es": "Otros argumentos pasaron al proceso Puppeteer",
-      "pl": "Dodatkowe argumenty przekazane do procesu Puppeteer",
-      "uk": "Додаткові аргументи передані до процесу цуценя",
-      "zh-cn": "向Puppeteer进程提出的其他论点"
+    "type": "panel",
+    "i18n": {
+        "additionalLaunchArgs": {
+            "en": "Additional arguments passed to the Puppeteer process",
+            "de": "Zusätzliche Argumente, die dem Puppeteer-Prozess übergeben werden",
+            "ru": "Дополнительные аргументы, переданные в процесс Puppeteer",
+            "pt": "Outros argumentos passaram para o processo Puppeteer",
+            "nl": "Aanvullende argumenten voor het Puppeteerproces",
+            "fr": "Autres arguments transmis au processus Puppeteer",
+            "it": "Ulteriori argomenti passati al processo Puppeteer",
+            "es": "Otros argumentos pasaron al proceso Puppeteer",
+            "pl": "Dodatkowe argumenty przekazane do procesu Puppeteer",
+            "uk": "Додаткові аргументи передані до процесу цуценя",
+            "zh-cn": "向Puppeteer进程提出的其他论点"
+        },
+        "useExternalBrowser": {
+            "en": "Use external browser",
+            "de": "Externen Browser verwenden",
+            "ru": "Используйте внешний браузер",
+            "pt": "Utilizar um navegador externo",
+            "nl": "Externe browser gebruiken",
+            "fr": "Utiliser un navigateur externe",
+            "it": "Utilizzare un browser esterno",
+            "es": "Utilizar un navegador externo",
+            "pl": "Korzystanie z zewnętrznej przeglądarki",
+            "uk": "Використовуйте зовнішній браузер",
+            "zh-cn": "使用外部浏览器"
+        },
+        "executablePath": {
+            "en": "Path to the external browser",
+            "de": "Pfad zum externen Browser",
+            "ru": "Путь к внешнему браузеру",
+            "pt": "Caminho para o navegador externo",
+            "nl": "Pad naar de externe browser",
+            "fr": "Chemin d'accès au navigateur externe",
+            "it": "Percorso del browser esterno",
+            "es": "Ruta al navegador externo",
+            "pl": "Ścieżka do zewnętrznej przeglądarki",
+            "uk": "Шлях до зовнішнього браузера",
+            "zh-cn": "外部浏览器的路径"
+        },
+        "argument": {
+            "en": "Argument",
+            "de": "Argument",
+            "ru": "Аргумент",
+            "pt": "Argumento",
+            "nl": "Argument",
+            "fr": "Argument",
+            "it": "Argomento",
+            "es": "Argumento",
+            "pl": "Argument",
+            "uk": "Аргумент",
+            "zh-cn": "参数"
+        },
+        "maxParallelRenders": {
+            "en": "Max. parallel renders",
+            "de": "Max. parallele Renders",
+            "ru": "Макс. параллельных процессов",
+            "pt": "Máx. renderizações paralelas",
+            "nl": "Max. parallelle renders",
+            "fr": "Max. rendus parallèles",
+            "it": "Max. rendering paralleli",
+            "es": "Máx. renders paralelos",
+            "pl": "Maks. renderów równoległych",
+            "uk": "Макс. паралельних рендерів",
+            "zh-cn": "最大并行渲染数"
+        },
+        "maxParallelRendersHelp": {
+            "en": "How many screenshots/pages should be active at the same time. 0 = unlimited. Set this to reduce RAM usage.",
+            "de": "Wie viele Screenshots/Seiten dürfen gleichzeitig aktiv sein. 0 = unbegrenzt. Reduzieren Sie den Wert, um RAM zu sparen.",
+            "ru": "Сколько скриншотов/страниц должно быть активно одновременно. 0 = не ограничено. Уменьшите для экономии ОЗУ.",
+            "pt": "Quantas capturas de tela/páginas devem estar ativas ao mesmo tempo. 0 = ilimitado. Defina para reduzir o uso de RAM.",
+            "nl": "Hoeveel screenshots/pagina's er tegelijkertijd actief mogen zijn. 0 = onbeperkt. Verlaag dit om RAM te besparen.",
+            "fr": "Combien de captures d'écran/pages doivent être actives en même temps. 0 = illimité. Définir cela pour réduire l'utilisation de la RAM.",
+            "it": "Quanti screenshot/pagine dovrebbero essere attivi contemporaneamente. 0 = illimitato. Impostalo per ridurre l'utilizzo della RAM.",
+            "es": "Cuántas capturas de pantalla/páginas deben estar activas al mismo tiempo. 0 = ilimitado. Establézcalo para reducir el uso de RAM.",
+            "pl": "Ile zrzutów ekranu/stron powinno być aktywnych jednocześnie. 0 = bez limitu. Ustawić to, aby zaoszczędzić RAM.",
+            "uk": "Скільки скріншотів/сторінок повинно бути активними одночасно. 0 = необмежено. Зменшіть, щоб заощадити RAM.",
+            "zh-cn": "同时允许多少个屏幕截图/页面处于活动状态。 0 = 无限制。将其调低以减少 RAM 使用。"
+        },
+        "webInstance": {
+            "en": "Web instance",
+            "de": "Web-Instanz",
+            "ru": "Экземпляр web",
+            "pt": "Instância web",
+            "nl": "Web-instantie",
+            "fr": "Instance web",
+            "it": "Istanza web",
+            "es": "Instancia web",
+            "pl": "Instancja web",
+            "uk": "Екземпляр web",
+            "zh-cn": "Web 实例"
+        },
+        "webInstanceHelp": {
+            "en": "Instance of the web adapter that provides the screenshot link. '*' means all web instances.",
+            "de": "Instanz des Web-Adapters, die den Screenshot-Link bereitstellt. '*' bedeutet alle Web-Instanzen.",
+            "ru": "Экземпляр адаптера web, который предоставляет ссылку для скриншота. '*' — все экземпляры web.",
+            "pt": "Instância do adaptador web que fornece o link da captura de tela. '*' significa todas as instâncias web.",
+            "nl": "Instantie van de web-adapter die de screenshot-link levert. '*' betekent alle web-instanties.",
+            "fr": "Instance de l'adaptateur web qui fournit le lien de capture d'écran. '*' signifie toutes les instances web.",
+            "it": "Istanza dell'adattatore web che fornisce il link dello screenshot. '*' significa tutte le istanze web.",
+            "es": "Instancia del adaptador web que proporciona el enlace de la captura de pantalla. '*' significa todas las instancias web.",
+            "pl": "Instancja adaptera web, która udostępnia link do zrzutu ekranu. '*' oznacza wszystkie instancje web.",
+            "uk": "Екземпляр адаптера web, який надає посилання для знімка екрана. '*' означає всі екземпляри web.",
+            "zh-cn": "提供截图链接的 web 适配器实例。'*' 表示所有 web 实例。"
+        },
+        "webPath": {
+            "en": "URL path",
+            "de": "URL-Pfad",
+            "ru": "Путь URL",
+            "pt": "Caminho da URL",
+            "nl": "URL-pad",
+            "fr": "Chemin de l'URL",
+            "it": "Percorso URL",
+            "es": "Ruta URL",
+            "pl": "Ścieżka URL",
+            "uk": "Шлях URL",
+            "zh-cn": "URL 路径"
+        },
+        "webPathHelp": {
+            "en": "Screenshots are available at http://<web-ip>:8082/<path>/?url=... Must be unique if several puppeteer instances use the same web instance.",
+            "de": "Screenshots sind unter http://<web-ip>:8082/<Pfad>/?url=... erreichbar. Muss eindeutig sein, wenn mehrere Puppeteer-Instanzen dieselbe Web-Instanz nutzen.",
+            "ru": "Скриншоты доступны по адресу http://<web-ip>:8082/<путь>/?url=... Должен быть уникальным, если несколько экземпляров puppeteer используют один экземпляр web.",
+            "pt": "As capturas de tela ficam disponíveis em http://<web-ip>:8082/<caminho>/?url=... Deve ser único se várias instâncias do puppeteer usarem a mesma instância web.",
+            "nl": "Screenshots zijn beschikbaar op http://<web-ip>:8082/<pad>/?url=... Moet uniek zijn als meerdere puppeteer-instanties dezelfde web-instantie gebruiken.",
+            "fr": "Les captures d'écran sont disponibles sur http://<web-ip>:8082/<chemin>/?url=... Doit être unique si plusieurs instances puppeteer utilisent la même instance web.",
+            "it": "Gli screenshot sono disponibili su http://<web-ip>:8082/<percorso>/?url=... Deve essere univoco se più istanze di puppeteer usano la stessa istanza web.",
+            "es": "Las capturas están disponibles en http://<web-ip>:8082/<ruta>/?url=... Debe ser único si varias instancias de puppeteer usan la misma instancia web.",
+            "pl": "Zrzuty ekranu są dostępne pod http://<web-ip>:8082/<ścieżka>/?url=... Musi być unikalna, jeśli kilka instancji puppeteer korzysta z tej samej instancji web.",
+            "uk": "Знімки екрана доступні за адресою http://<web-ip>:8082/<шлях>/?url=... Має бути унікальним, якщо кілька екземплярів puppeteer використовують той самий екземпляр web.",
+            "zh-cn": "截图可通过 http://<web-ip>:8082/<路径>/?url=... 访问。若多个 puppeteer 实例使用同一个 web 实例，该路径必须唯一。"
+        }
     },
-    "useExternalBrowser": {
-      "en": "Use external browser",
-      "de": "Externen Browser verwenden",
-      "ru": "Используйте внешний браузер",
-      "pt": "Utilizar um navegador externo",
-      "nl": "Externe browser gebruiken",
-      "fr": "Utiliser un navigateur externe",
-      "it": "Utilizzare un browser esterno",
-      "es": "Utilizar un navegador externo",
-      "pl": "Korzystanie z zewnętrznej przeglądarki",
-      "uk": "Використовуйте зовнішній браузер",
-      "zh-cn": "使用外部浏览器"
-    },
-    "executablePath": {
-      "en": "Path to the external browser",
-      "de": "Pfad zum externen Browser",
-      "ru": "Путь к внешнему браузеру",
-      "pt": "Caminho para o navegador externo",
-      "nl": "Pad naar de externe browser",
-      "fr": "Chemin d'accès au navigateur externe",
-      "it": "Percorso del browser esterno",
-      "es": "Ruta al navegador externo",
-      "pl": "Ścieżka do zewnętrznej przeglądarki",
-      "uk": "Шлях до зовнішнього браузера",
-      "zh-cn": "外部浏览器的路径"
+    "items": {
+        "useExternalBrowser": {
+            "type": "checkbox",
+            "label": "useExternalBrowser"
+        },
+        "executablePath": {
+            "placeholder": "/usr/bin/chromium-browser",
+            "hidden": "!data.useExternalBrowser",
+            "newLine": true,
+            "type": "text",
+            "label": "executablePath"
+        },
+        "additionalArgs": {
+            "newLine": true,
+            "label": "additionalLaunchArgs",
+            "type": "table",
+            "uniqueColumns": [
+                "Argument"
+            ],
+            "xs": 12,
+            "items": [
+                {
+                    "attr": "Argument",
+                    "label": "Argument",
+                    "filter": false,
+                    "sort": false,
+                    "type": "autocomplete",
+                    "freeSolo": true,
+                    "options": [
+                        "--disable-lcd-text",
+                        "--disable-composited-antialiasing"
+                    ]
+                }
+            ]
+        },
+        "maxParallelRenders": {
+            "newLine": true,
+            "type": "number",
+            "min": 0,
+            "step": 1,
+            "label": "maxParallelRenders",
+            "help": "maxParallelRendersHelp"
+        },
+        "webInstance": {
+            "newLine": true,
+            "type": "instance",
+            "adapter": "web",
+            "all": true,
+            "label": "webInstance",
+            "help": "webInstanceHelp",
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 4
+        },
+        "webPath": {
+            "type": "text",
+            "label": "webPath",
+            "help": "webPathHelp",
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 4
+        }
     }
-  },
-  "items": {
-    "useExternalBrowser": {
-      "type": "checkbox",
-      "label": "useExternalBrowser"
-    },
-    "executablePath": {
-      "placeholder": "/usr/bin/chromium-browser",
-      "hidden": "!data.useExternalBrowser",
-      "newLine": true,
-      "type": "text",
-      "label": "executablePath"
-    },
-    "additionalArgs": {
-      "newLine": true,
-      "label": "additionalLaunchArgs",
-      "type": "table",
-      "uniqueColumns": ["Argument"],
-      "xs": 12,
-      "items": [{
-        "attr": "Argument",
-        "label": "Argument",
-        "filter": false,
-        "sort": false,
-        "type": "autocomplete",
-        "freeSolo": true,
-        "options": [
-          "--disable-lcd-text",
-          "--disable-composited-antialiasing"
-        ]
-      }]
-    }
-  }
 }
